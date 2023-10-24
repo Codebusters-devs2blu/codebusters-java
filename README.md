@@ -1,5 +1,7 @@
 # Projeto Codebusters: Poupi
 
+## Protótipo Figma:
+https://www.figma.com/file/2Orm4Y8YZYGCY9n4zXUBuj/Untitled?type=design&node-id=1%3A6195&mode=design&t=28hRb6llOfOZlENO-1
 
 ## Diagrama de Classes
 ![Class Diagram](documents/POUPI.png)
