@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.services.UserServices;
+
 
 import jakarta.validation.Valid;
 
@@ -18,6 +20,7 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/api/user")
 public class UserController implements CrudController<UserDTO, Long> {
 	@Autowired
+
 	private UserServices userService;
 
 	@Override
