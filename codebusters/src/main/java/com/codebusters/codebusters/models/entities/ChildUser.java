@@ -22,10 +22,10 @@ public class ChildUser {
     @OneToOne
     private Wallet wallet;
 
-    @OneToMany
+    @OneToMany(mappedBy = "childUser")
     private List<Objective> objectives;
 
-    @OneToMany
+    @OneToMany(mappedBy = "childUser")
     private List<ChildTask> tasks;
 
     private Family family;

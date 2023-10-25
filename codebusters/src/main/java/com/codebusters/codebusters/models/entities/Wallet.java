@@ -11,9 +11,9 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double money;
+    private double money = 0.0;
 
-    @OneToMany
+    @OneToMany(mappedBy = "wallet")
     private List<Release> releaseExtract;
 
     public Wallet() {

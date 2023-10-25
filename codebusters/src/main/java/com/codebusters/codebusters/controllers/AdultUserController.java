@@ -1,7 +1,9 @@
 package com.codebusters.codebusters.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.codebusters.codebusters.models.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +29,8 @@ public class AdultUserController {
 
 	@GetMapping(value = "/listAll")
 	public List<AdultUserDTO> listAll() {
-		return adultUserService.listAll();
+
+		return new ArrayList<>(); //adultUserService.listAll();
 	}
 
 	@PostMapping
@@ -39,7 +42,7 @@ public class AdultUserController {
 	@DeleteMapping(value = "/{id}")
 	public void deleteById(@PathVariable Long id) {
 		try {
-			adultUserService.deleteBuyer(id);
+			//adultUserService.dele(id);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -47,7 +50,7 @@ public class AdultUserController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AdultUserDTO> findById(Long id) {
-		AdultUserDTO productStockDTO = adultUserService.findById(id);
+		AdultUserDTO productStockDTO = null; //adultUserService.findById(id);
 		if (productStockDTO == null) {
 			return ResponseEntity.notFound().build();
 		}

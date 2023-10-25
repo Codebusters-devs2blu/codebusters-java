@@ -19,7 +19,7 @@ public class AdultUser {
 
     private String job;
 
-    @OneToMany
+    @OneToMany(mappedBy = "guardian")
     private List<ChildUser> dependents;
 
     @OneToOne
@@ -28,7 +28,7 @@ public class AdultUser {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    @OneToMany
+    @OneToMany(mappedBy = "adultUser")
     private List<ChildTask> tasks;
 
     public AdultUser() {

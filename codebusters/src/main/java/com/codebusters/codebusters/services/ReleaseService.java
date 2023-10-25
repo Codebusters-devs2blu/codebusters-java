@@ -1,12 +1,67 @@
 package com.codebusters.codebusters.services;
 
+import com.codebusters.codebusters.models.dtos.ReleaseDTO;
+import com.codebusters.codebusters.models.entities.Release;
+import com.codebusters.codebusters.repositories.ReleaseRepository;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReleaseService {
-	
+
 	@Autowired
-	ModelMapper mapper;
+	private ReleaseRepository releaseRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public List<ReleaseDTO> listAll() {
+		List<Release> releases = releaseRepository.findAll();
+		return releases.stream()
+				.map(release -> modelMapper.map(release, ReleaseDTO.class))
+				.collect(Collectors.toList());
+	}
+
+	public ResponseEntity<ReleaseDTO> findById(Long id) {
+		Optional<Release> releaseOptional = releaseRepository.findById(id);
+		if (releaseOptional.isPresent()) {
+			ReleaseDTO releaseDTO = modelMapper.map(releaseOptional.get(), ReleaseDTO.class);
+			return new ResponseEntity<>(releaseDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	public ResponseEntity<ReleaseDTO> create(@Valid ReleaseDTO releaseDTO) {
+		Release release = modelMapper.map(releaseDTO, Release.class);
+		Release createdRelease = releaseRepository.save(release);
+		ReleaseDTO createdReleaseDTO = modelMapper.map(createdRelease, ReleaseDTO.class);
+		return new ResponseEntity<>(createdReleaseDTO, HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ReleaseDTO> update(@Valid ReleaseDTO releaseDTO) {
+		Release release = modelMapper.map(releaseDTO, Release.class);
+		if (releaseRepository.existsById(release.getId())) {
+			Release updatedRelease = releaseRepository.save(release);
+			ReleaseDTO updatedReleaseDTO = modelMapper.map(updatedRelease, ReleaseDTO.class);
+			return new ResponseEntity<>(updatedReleaseDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	public void deleteById(Long id) {
+		releaseRepository.deleteById(id);
+	}
+
+
+
 }
