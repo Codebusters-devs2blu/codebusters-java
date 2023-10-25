@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class ChildUserDTO implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -31,5 +30,5 @@ public class ChildUserDTO implements Serializable {
 	private AdultUser adultUser;
 	@NotBlank(message = "O objeto childUser não pode estar em branco")
 	@NotEmpty(message = "O objeto childUser não pode estar vazio")
-	private ChildUser childUser;
+	private ChildUserDTO childUserDTO;
 }

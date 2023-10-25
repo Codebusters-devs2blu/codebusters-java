@@ -31,7 +31,7 @@ public class AdultUserDTO implements Serializable {
 
 	@NotBlank(message = "O objeto user não pode estar em branco")
 	@NotEmpty(message = "O objeto user não pode estar vazio")
-	private User user;
+	private UserDTO userDTO;
 	@NotBlank(message = "O campo email não pode estar em branco")
 	@NotEmpty(message = "O campo email não pode estar vazio")
 	private String email;
@@ -40,67 +40,79 @@ public class AdultUserDTO implements Serializable {
 	private String job;
 	@NotBlank(message = "A lista de dependents não pode estar em branco")
 	@NotEmpty(message = "A lista de dependents não pode estar vazio")
-	private List<ChildUser> dependents;
+	private List<ChildUserDTO> dependents;
 	@NotBlank(message = "O campo wallet não pode estar em branco")
 	@NotEmpty(message = "O campo wallet não pode estar vazio")
-	private Wallet wallet;
+	private WalletDTO wallet;
 	@NotBlank(message = "O campo cpf não pode estar em branco")
 	@NotEmpty(message = "O campo cpf não pode estar vazio")
 	@Size(min = 11)
 	private String cpf;
 	@NotBlank(message = "A lista de tasks não pode estar em branco")
 	@NotEmpty(message = "A lista de tasks pode estar vazio")
-	private List<ChildTask> tasks;
+	private List<ChildTaskDTO> tasks;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getUser() {
-		return user;
+
+	public UserDTO getUserDTO() {
+		return userDTO;
 	}
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getJob() {
 		return job;
 	}
+
 	public void setJob(String job) {
 		this.job = job;
 	}
-	public List<ChildUser> getDependents() {
+
+	public List<ChildUserDTO> getDependents() {
 		return dependents;
 	}
-	public void setDependents(List<ChildUser> dependents) {
+
+	public void setDependents(List<ChildUserDTO> dependents) {
 		this.dependents = dependents;
 	}
-	public Wallet getWallet() {
+
+	public WalletDTO getWallet() {
 		return wallet;
 	}
-	public void setWallet(Wallet wallet) {
+
+	public void setWallet(WalletDTO wallet) {
 		this.wallet = wallet;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public List<ChildTask> getTasks() {
+
+	public List<ChildTaskDTO> getTasks() {
 		return tasks;
 	}
-	public void setTasks(List<ChildTask> tasks) {
+
+	public void setTasks(List<ChildTaskDTO> tasks) {
 		this.tasks = tasks;
 	}
-	
-	
-	
-	
 }

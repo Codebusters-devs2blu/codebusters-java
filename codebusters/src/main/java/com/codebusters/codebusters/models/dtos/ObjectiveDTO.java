@@ -19,7 +19,7 @@ public class ObjectiveDTO {
     @NotEmpty(message = "O campo código não pode estar vazio")
     private String description;
 
-    private ChildUser childUserDTO;
+    private ChildUserDTO childUserDTO;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class ObjectiveDTO {
         this.description = description;
     }
 
-    public ChildUser getChildUserDTO() {
+    public ChildUserDTO getChildUserDTO() {
         return childUserDTO;
     }
 
-    public void setChildUserDTO(ChildUser childUserDTO) {
+    public void setChildUserDTO(ChildUserDTO childUserDTO) {
         this.childUserDTO = childUserDTO;
     }
 }

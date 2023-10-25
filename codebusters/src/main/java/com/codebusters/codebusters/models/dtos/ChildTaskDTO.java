@@ -31,9 +31,10 @@ public class ChildTaskDTO {
     @NotEmpty(message = "O campo código não pode estar vazio")
     private TaskStatus status;
 
-    private AdultUser adultUserDTO;
+    private AdultUserDTO adultUserDTO;
 
-    private ChildUser childUserDTO;
+    private ChildUserDTO childUserDTO;
+
 
     public Long getId() {
         return id;
@@ -67,19 +68,19 @@ public class ChildTaskDTO {
         this.status = status;
     }
 
-    public AdultUser getAdultUserDTO() {
+    public AdultUserDTO getAdultUserDTO() {
         return adultUserDTO;
     }
 
-    public void setAdultUserDTO(AdultUser adultUserDTO) {
+    public void setAdultUserDTO(AdultUserDTO adultUserDTO) {
         this.adultUserDTO = adultUserDTO;
     }
 
-    public ChildUser getChildUserDTO() {
+    public ChildUserDTO getChildUserDTO() {
         return childUserDTO;
     }
 
-    public void setChildUserDTO(ChildUser childUserDTO) {
+    public void setChildUserDTO(ChildUserDTO childUserDTO) {
         this.childUserDTO = childUserDTO;
     }
 }
