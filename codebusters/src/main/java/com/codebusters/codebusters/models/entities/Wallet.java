@@ -14,15 +14,15 @@ public class Wallet {
     private double money;
 
     @OneToMany
-    private List<Release> extract;
+    private List<Release> releaseExtract;
 
     public Wallet() {
     }
 
-    public Wallet(Long id, double money, List<Release> extract) {
+    public Wallet(Long id, double money, List<Release> releaseExtract) {
         this.id = id;
         this.money = money;
-        this.extract = extract;
+        this.releaseExtract = releaseExtract;
     }
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class Wallet {
         this.money = money;
     }
 
-    public List<Release> getExtract() {
-        return extract;
+    public List<Release> getReleaseExtract() {
+        return releaseExtract;
     }
 
-    public void setExtract(List<Release> extract) {
-        this.extract = extract;
+    public void setReleaseExtract(List<Release> releaseExtract) {
+        this.releaseExtract = releaseExtract;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Wallet {
         return "Wallet{" +
                 "id=" + id +
                 ", money=" + money +
-                ", extract=" + extract +
+                ", extract=" + releaseExtract +
                 '}';
     }
 }

@@ -19,7 +19,7 @@ public class Release {
     private ReleaseType type;
 
     @Column(nullable = false)
-    private double value;
+    private double releaseValue;
 
     private String description;
 
@@ -29,11 +29,11 @@ public class Release {
     public Release() {
     }
 
-    public Release(Long id, Timestamp date, ReleaseType type, double value, String description, Wallet wallet) {
+    public Release(Long id, Timestamp date, ReleaseType type, double releaseValue, String description, Wallet wallet) {
         this.id = id;
         this.date = date;
         this.type = type;
-        this.value = value;
+        this.releaseValue = releaseValue;
         this.description = description;
         this.wallet = wallet;
     }
@@ -62,12 +62,12 @@ public class Release {
         this.type = type;
     }
 
-    public double getValue() {
-        return value;
+    public double getReleaseValue() {
+        return releaseValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setReleaseValue(double releaseValue) {
+        this.releaseValue = releaseValue;
     }
 
     public String getDescription() {
@@ -92,7 +92,7 @@ public class Release {
                 "id=" + id +
                 ", date=" + date +
                 ", type=" + type +
-                ", value=" + value +
+                ", value=" + releaseValue +
                 ", description='" + description + '\'' +
                 ", wallet=" + wallet +
                 '}';

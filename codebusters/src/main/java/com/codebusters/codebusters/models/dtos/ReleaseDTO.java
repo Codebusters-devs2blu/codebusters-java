@@ -1,11 +1,9 @@
 package com.codebusters.codebusters.models.dtos;
 
 import com.codebusters.codebusters.enums.ReleaseType;
-import com.codebusters.codebusters.models.entities.Wallet;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -28,7 +26,7 @@ public class ReleaseDTO implements Serializable {
 
     @NotBlank(message = "O campo value não pode estar em branco")
     @NotEmpty(message = "O campo value não pode estar vazio")
-    private double value;
+    private double releaseValue;
 
     @NotBlank(message = "O campo description não pode estar em branco")
     @NotEmpty(message = "O campo description não pode estar vazio")
@@ -62,12 +60,12 @@ public class ReleaseDTO implements Serializable {
         this.type = type;
     }
 
-    public double getValue() {
-        return value;
+    public double getReleaseValue() {
+        return releaseValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setReleaseValue(double releaseValue) {
+        this.releaseValue = releaseValue;
     }
 
     public String getDescription() {
