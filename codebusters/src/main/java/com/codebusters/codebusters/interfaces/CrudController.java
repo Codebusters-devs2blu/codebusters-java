@@ -10,9 +10,9 @@ public interface CrudController<T, ID>{
 
     ResponseEntity<T> findById(ID id);
 
-    ResponseEntity<Object> create(@Valid T dto);
+    ResponseEntity<Object> create(@Valid  T dto);
 
-    void update(ID id, @Valid T dto);
+    ResponseEntity<T> update(@Valid  T dto);
 
     void deleteById(ID id);
 }
