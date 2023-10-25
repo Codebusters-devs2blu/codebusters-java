@@ -3,6 +3,7 @@ package com.codebusters.codebusters.models.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id

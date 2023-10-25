@@ -1,15 +1,10 @@
 package com.codebusters.codebusters.models.dtos;
 
 import com.codebusters.codebusters.enums.TaskStatus;
-import com.codebusters.codebusters.models.entities.AdultUser;
-import com.codebusters.codebusters.models.entities.ChildUser;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 
 @NoArgsConstructor
@@ -25,7 +20,7 @@ public class ChildTaskDTO {
 
     @NotBlank(message = "O campo código não pode estar em branco")
     @NotEmpty(message = "O campo código não pode estar vazio")
-    private Double value;
+    private Double taskValue;
 
     @NotBlank(message = "O campo código não pode estar em branco")
     @NotEmpty(message = "O campo código não pode estar vazio")
@@ -52,12 +47,12 @@ public class ChildTaskDTO {
         this.description = description;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getTaskValue() {
+        return taskValue;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setTaskValue(Double taskValue) {
+        this.taskValue = taskValue;
     }
 
     public TaskStatus getStatus() {

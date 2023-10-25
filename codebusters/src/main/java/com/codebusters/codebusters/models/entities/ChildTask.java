@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "child_task")
 public class ChildTask {
 
     @Id
@@ -14,8 +15,8 @@ public class ChildTask {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private double value;
+    //@Column(nullable = false)
+    private Double taskValue;
 
     @Column(nullable = false)
     private TaskStatus status;
@@ -29,10 +30,10 @@ public class ChildTask {
     public ChildTask() {
     }
 
-    public ChildTask(Long id, String description, double value, TaskStatus status, AdultUser adultUser, ChildUser childUser) {
+    public ChildTask(Long id, String description, Double taskValue, TaskStatus status, AdultUser adultUser, ChildUser childUser) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.taskValue = taskValue;
         this.status = status;
         this.adultUser = adultUser;
         this.childUser = childUser;
@@ -54,12 +55,12 @@ public class ChildTask {
         this.description = description;
     }
 
-    public double getValue() {
-        return value;
+    public Double getTaskValue() {
+        return taskValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setTaskValue(Double taskValue) {
+        this.taskValue = taskValue;
     }
 
     public TaskStatus getStatus() {
@@ -91,7 +92,7 @@ public class ChildTask {
         return "ChildTask{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", value=" + value +
+                ", value=" + taskValue +
                 ", status=" + status +
                 ", adultUser=" + adultUser +
                 ", childUser=" + childUser +

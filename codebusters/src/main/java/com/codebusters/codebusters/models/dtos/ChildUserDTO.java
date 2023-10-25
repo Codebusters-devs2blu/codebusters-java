@@ -51,9 +51,6 @@ public class ChildUserDTO implements Serializable {
 
     @NotBlank(message = "O objeto childUser não pode estar em branco")
 	@NotEmpty(message = "O objeto childUser não pode estar vazio")
-
-	private ChildUserDTO childUserDTO;
-
     private AdultUserDTO guardian;
 
 	public Long getId() {
@@ -110,14 +107,6 @@ public class ChildUserDTO implements Serializable {
 
 	public void setFamily(Family family) {
 		this.family = family;
-	}
-
-	public ChildUserDTO getChildUserDTO() {
-		return childUserDTO;
-	}
-
-	public void setChildUserDTO(ChildUserDTO childUserDTO) {
-		this.childUserDTO = childUserDTO;
 	}
 
 	public AdultUserDTO getGuardian() {
