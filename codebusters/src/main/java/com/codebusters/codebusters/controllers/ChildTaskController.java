@@ -36,7 +36,8 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	}
 
 	@Override
-	public void deleteById(Long aLong) {
+	public ResponseEntity<Object> deleteById(Long aLong) {
+		return null;
 
 	}
 }
