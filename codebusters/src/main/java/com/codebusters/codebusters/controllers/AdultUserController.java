@@ -48,11 +48,9 @@ public class AdultUserController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AdultUserDTO> findById(Long id) {
 		AdultUserDTO productStockDTO = adultUserService.findById(id);
-
 		if (productStockDTO == null) {
 			return ResponseEntity.notFound().build();
 		}
-
 		return ResponseEntity.ok(productStockDTO);
 	}
 }
