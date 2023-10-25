@@ -29,22 +29,22 @@ public class ChildUserDTO implements Serializable {
 
 	@NotBlank(message = "O objeto user não pode estar em branco")
 	@NotEmpty(message = "O objeto user não pode estar vazio")
-    private User user;
+    private UserDTO userDTO;
     @NotBlank(message = "O campo birthday não pode estar em branco")
 	@NotEmpty(message = "O campo birthday não pode estar vazio")
     private Date birthday;
 
     @NotBlank(message = "O objeto wallet não pode estar em branco")
 	@NotEmpty(message = "O objeto wallet não pode estar vazio")
-    private Wallet wallet;
+    private WalletDTO walletDTO;
 
     @NotBlank(message = "A lista objectives não pode estar em branco")
 	@NotEmpty(message = "A lista objectives não pode estar vazio")
-    private List<Objective> objectives;
+    private List<ObjectiveDTO> objectives;
 
     @NotBlank(message = "A lista tasks não pode estar em branco")
 	@NotEmpty(message = "A lista tasks não pode estar vazio")
-    private List<ChildTask> tasks;
+    private List<ChildTaskDTO> tasks;
     @NotBlank(message = "O objeto family não pode estar em branco")
 	@NotEmpty(message = "O objeto family não pode estar vazio")
     private Family family;
@@ -54,7 +54,7 @@ public class ChildUserDTO implements Serializable {
 
 	private ChildUserDTO childUserDTO;
 
-    private AdultUser guardian;
+    private AdultUserDTO guardian;
 
 	public Long getId() {
 		return id;
@@ -64,12 +64,12 @@ public class ChildUserDTO implements Serializable {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public UserDTO getUserDTO() {
+		return userDTO;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
 
 	public Date getBirthday() {
@@ -80,27 +80,27 @@ public class ChildUserDTO implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public Wallet getWallet() {
-		return wallet;
+	public WalletDTO getWalletDTO() {
+		return walletDTO;
 	}
 
-	public void setWallet(Wallet wallet) {
-		this.wallet = wallet;
+	public void setWalletDTO(WalletDTO walletDTO) {
+		this.walletDTO = walletDTO;
 	}
 
-	public List<Objective> getObjectives() {
+	public List<ObjectiveDTO> getObjectives() {
 		return objectives;
 	}
 
-	public void setObjectives(List<Objective> objectives) {
+	public void setObjectives(List<ObjectiveDTO> objectives) {
 		this.objectives = objectives;
 	}
 
-	public List<ChildTask> getTasks() {
+	public List<ChildTaskDTO> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(List<ChildTask> tasks) {
+	public void setTasks(List<ChildTaskDTO> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -112,13 +112,19 @@ public class ChildUserDTO implements Serializable {
 		this.family = family;
 	}
 
-	public AdultUser getGuardian() {
+	public ChildUserDTO getChildUserDTO() {
+		return childUserDTO;
+	}
+
+	public void setChildUserDTO(ChildUserDTO childUserDTO) {
+		this.childUserDTO = childUserDTO;
+	}
+
+	public AdultUserDTO getGuardian() {
 		return guardian;
 	}
 
-	public void setGuardian(AdultUser guardian) {
+	public void setGuardian(AdultUserDTO guardian) {
 		this.guardian = guardian;
 	}
-
-    
 }
