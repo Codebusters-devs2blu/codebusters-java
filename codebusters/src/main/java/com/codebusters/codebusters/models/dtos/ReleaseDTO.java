@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReleaseDTO implements Serializable {

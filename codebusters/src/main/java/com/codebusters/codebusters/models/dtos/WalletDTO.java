@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class WalletDTO  implements Serializable{
