@@ -14,6 +14,7 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	@Autowired
 	private ChildTaskService childTaskService;
 
+
 	@Override
 	public List<ChildTaskDTO> listAll() {
 		return null;
@@ -30,8 +31,8 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	}
 
 	@Override
-	public void update(Long aLong, ChildTaskDTO dto) {
-
+	public ResponseEntity<ChildTaskDTO> update(ChildTaskDTO dto) {
+		return null;
 	}
 
 	@Override
