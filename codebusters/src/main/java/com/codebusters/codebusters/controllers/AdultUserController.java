@@ -1,22 +1,16 @@
 package com.codebusters.codebusters.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.codebusters.codebusters.models.dtos.UserDTO;
+import com.codebusters.codebusters.models.entities.AdultUser;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.AdultUserDTO;
-import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
 import com.codebusters.codebusters.services.AdultUserService;
 
 
@@ -26,8 +20,15 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/api/adultUser")
 public class AdultUserController  implements CrudController<AdultUserDTO, Long>{
 
-	@Autowired
 	private AdultUserService adultUserService;
+	private final ModelMapper modelMapper;
+
+	@Autowired
+	public AdultUserController(AdultUserService adultUserService, ModelMapper modelMapper) {
+		this.adultUserService = adultUserService;
+		this.modelMapper = modelMapper;
+	}
+
 
 	@Override
 	public List<AdultUserDTO> listAll() {
@@ -56,8 +57,20 @@ public class AdultUserController  implements CrudController<AdultUserDTO, Long>{
 		return null;
 	}
 
+
 	@Override
-	@PostMapping
+	@PostMapping(value = "/create")
+	public ResponseEntity<Object> create(@Valid @RequestBody AdultUserDTO adultUserDTO) {
+		AdultUser createdAdultUser = adultUserService.createAdultUser(adultUserDTO);
+
+		// Mapear o resultado para um AdultUserDTO
+		AdultUserDTO createdAdultUserDTO = modelMapper.map(createdAdultUser, AdultUserDTO.class);
+
+		return ResponseEntity.status(201).body(createdAdultUserDTO);
+	}
+
+
+/*	@PostMapping
 	public ResponseEntity<Object> create(@Valid AdultUserDTO dto) {
 		 try {
 			 //adultUserService.addAdultUsers(dto);
@@ -68,10 +81,11 @@ public class AdultUserController  implements CrudController<AdultUserDTO, Long>{
 	            return ResponseEntity.badRequest().body(e.getMessage());
 	        }
 		
-	}
+	}*/
 
-	@Override
-	@PutMapping(value= "/update-adultuser")
+
+/*	@Override
+	@PutMapping(value= "/update")
 	public ResponseEntity<AdultUserDTO> update(@Valid AdultUserDTO dto) {
 		try {
 			//adultUserService.save(dto);
@@ -81,6 +95,17 @@ public class AdultUserController  implements CrudController<AdultUserDTO, Long>{
 		return null;
 		
 
+	}*/
+	@Override
+	@PutMapping(value = "/update")
+	public ResponseEntity<AdultUserDTO> update(@Valid @RequestBody AdultUserDTO dto) {
+		try {
+			AdultUser updatedAdultUser = adultUserService.updateAdultUser(dto);
+			AdultUserDTO updatedDto = modelMapper.map(updatedAdultUser, AdultUserDTO.class);
+			return ResponseEntity.ok(updatedDto);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 

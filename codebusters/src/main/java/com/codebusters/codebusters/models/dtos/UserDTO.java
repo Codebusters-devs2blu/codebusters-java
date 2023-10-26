@@ -1,17 +1,12 @@
 package com.codebusters.codebusters.models.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO implements Serializable {
@@ -21,16 +16,16 @@ public class UserDTO implements Serializable {
 
     private Long id;
 
-    @NotBlank(message = "O campo nome não pode estar em branco")
-    @NotEmpty(message = "O campo nome não pode estar vazio")
+/*    @NotBlank(message = "O campo nome não pode estar em branco")
+    @NotEmpty(message = "O campo nome não pode estar vazio")*/
     private String name;
 
-    @NotBlank(message = "O campo Senha não pode estar em branco")
-    @NotEmpty(message = "O campo Senha não pode estar vazio")
+/*    @NotBlank(message = "O campo Senha não pode estar em branco")
+    @NotEmpty(message = "O campo Senha não pode estar vazio")*/
     private String password;
 
-    @NotBlank(message = "O campo Nickname não pode estar em branco")
-    @NotEmpty(message = "O campo Nickname não pode estar vazio")
+  /*  @NotBlank(message = "O campo Nickname não pode estar em branco")
+    @NotEmpty(message = "O campo Nickname não pode estar vazio")*/
     private String nickname;
 
     public Long getId() {

@@ -24,7 +24,7 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	@Override
 	@GetMapping
 	public List<ChildTaskDTO> listAll() {
-		List<ChildTaskDTO> childTasks = childTaskService.getAllChildTasks();
+		List<ChildTaskDTO> childTasks = null/*childTaskService.getAllChildTasks()*/;
 		return childTasks;
 	}
 
@@ -38,6 +38,7 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 			} else {
 				return ResponseEntity.notFound().build();
 			}*/
+			return null;
 		} catch (Exception e) {
 			// Registre a exceção para fins de depuração
 			e.printStackTrace();
