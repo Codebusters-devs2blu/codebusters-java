@@ -9,14 +9,14 @@ import jakarta.validation.constraints.NotEmpty;
 public class ObjectiveDTO {
     private Long id;
 
-    @NotBlank(message = "O campo código não pode estar em branco")
-    @NotEmpty(message = "O campo código não pode estar vazio")
+
+    //@NotEmpty(message = "O campo valor da meta não pode estar vazio")
     private double objectiveValue;
 
     private double currentAmount;
 
-    @NotBlank(message = "O campo código não pode estar em branco")
-    @NotEmpty(message = "O campo código não pode estar vazio")
+    /*@NotBlank(message = "O campo descrição não pode estar em branco")
+    @NotEmpty(message = "O campo descrição não pode estar vazio")*/
     private String description;
 
     private ChildUserDTO childUserDTO;
