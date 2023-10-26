@@ -48,22 +48,12 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@GetMapping(value = "/listall")
 	public List<ChildUserDTO> listAllChild() {
-		/*
-		 * try { List<ChildUserDTO> childUser = childUserService.listAll(id);
-		 * 
-		 * if (!childUser.isEmpty()) { return childUser; } else { // Se a lista estiver
-		 * vazia, você pode retornar null ou uma lista vazia, // dependendo dos
-		 * requisitos. return Collections.emptyList(); // Retorna uma lista vazia. } }
-		 * catch (Exception e) {
-		 * 
-		 * e.printStackTrace();
-		 * 
-		 * return Collections.emptyList(); }
-		 */
+		return childUserService.listAll();
+		 /*
 		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
 		ChildUserDTO childUserDTO = setarObject();
 		childUserDTOs.add(childUserDTO);
-		return childUserDTOs;
+		return childUserDTOs;*/
 
 	}
 
@@ -134,7 +124,12 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
 		releaseDTOs.add(release);
 
-		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
+		UserDTO user = new UserDTO();
+		user.setId(1L);
+		user.setName("Alice Pereira");
+		user.setNickname("1234");
+		user.setPassword( "alice1234");
+		
 		UserDTO userFather = new UserDTO();
 		userFather.setId(40l);
 		userFather.setName("Paulo");
@@ -142,7 +137,7 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 		userFather.setPassword("123456");
 
 		AdultUserDTO adultUserDTO = new AdultUserDTO();
-		adultUserDTO.setUserDTO(userFather);
+		adultUserDTO.setUser(userFather);
 
 		ChildUserDTO childUserDTO01 = new ChildUserDTO();
 		childUserDTO01.setId(40l);
@@ -173,10 +168,8 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 		childUser.setGuardian(adultUserDTO);
 		childUser.setId(1L);
 		childUser.setWalletDTO(walletDTO);
-		childUser.setTasks(childTaskDTO);
 		childUser.setUserDTO(user);
 		childUser.setWalletDTO(new WalletDTO());
-		childUser.setObjectives(listObjective);
 		return childUser;
 	}
 

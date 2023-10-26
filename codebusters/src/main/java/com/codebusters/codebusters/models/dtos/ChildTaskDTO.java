@@ -77,4 +77,11 @@ public class ChildTaskDTO {
     public void setChildUserDTO(ChildUserDTO childUserDTO) {
         this.childUserDTO = childUserDTO;
     }
+
+	@Override
+	public String toString() {
+		return "ChildTaskDTO [id=" + id + ", description=" + description + ", taskValue=" + taskValue + ", status="
+				+ status + ", adultUserDTO=" + adultUserDTO + ", childUserDTO=" + childUserDTO + "]";
+	}
+    
 }

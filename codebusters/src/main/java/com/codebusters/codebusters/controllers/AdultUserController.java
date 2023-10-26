@@ -48,19 +48,16 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {
-		/*System.out.println(id);
-		AdultUserDTO adultUserDTO = adultUserService.findById(id);
-
-		if (adultUserDTO == null) {
+	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {	
+		AdultUserDTO adultUserDTO;
+		try {
+			adultUserDTO = adultUserService.findById(id);
+			return ResponseEntity.ok(adultUserDTO);
+		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
+			
 		}
-		return ResponseEntity.ok(adultUserDTO);
-
-		return ResponseEntity.ok(adultUserDTO);
-		*/
-		return ResponseEntity.ok( createAdult());
-	
+		
 	}
 
 	@Override
@@ -107,7 +104,12 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		}*/
 	}
 	public List<ChildUserDTO> createChild() {
-		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
+		UserDTO user = new UserDTO();
+		user.setId(1L);
+		user.setName("Alice Pereira");
+		user.setNickname("1234");
+		user.setPassword( "alice1234");
+		
 		
 		ChildUserDTO childUser = new ChildUserDTO();
 		childUser.setId(40l);
@@ -116,10 +118,9 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		childUser.setFamily(Family.DAD);
 		childUser.setId(1L);
 		childUser.setWalletDTO(createWallet());
-		childUser.setTasks(createChildTask());
 		childUser.setUserDTO(user);
 		childUser.setWalletDTO(new WalletDTO());
-		childUser.setObjectives(createObjective());
+
 		
 		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
 		childUserDTOs.add(childUser);
@@ -134,9 +135,9 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		userFather.setNickname("PaulinhoGameplays");
 		userFather.setPassword("123456");
 		AdultUserDTO adultUserDTO = new AdultUserDTO();
-		adultUserDTO.setUserDTO(userFather);
-		adultUserDTO.setDependents(createChild());
-		adultUserDTO.setWallet(createWallet());
+		adultUserDTO.setUser(userFather);
+		//adultUserDTO.setDependents(createChild());
+		//adultUserDTO.setWallet(createWallet());
 		return adultUserDTO; 
 		
 	}
