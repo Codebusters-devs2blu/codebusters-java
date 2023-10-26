@@ -15,4 +15,6 @@ public interface CrudController<T, ID>{
     ResponseEntity<T> update(@Valid  T dto);
 
     ResponseEntity<T> deleteById(ID id);
+
+
 }
