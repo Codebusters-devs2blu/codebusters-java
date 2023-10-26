@@ -8,6 +8,7 @@ import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.User;
 import com.codebusters.codebusters.models.entities.Wallet;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,19 +37,22 @@ public class AdultUserDTO implements Serializable {
 	@NotBlank(message = "O objeto user não pode estar em branco")
 	@NotEmpty(message = "O objeto user não pode estar vazio")
 	private UserDTO user;
+
 	@NotBlank(message = "O campo email não pode estar em branco")
 	@NotEmpty(message = "O campo email não pode estar vazio")
 	private String email;
-	@NotBlank(message = "O campo job não pode estar em branco")
-	@NotEmpty(message = "O campo job não pode estar vazio")
+
 	private String job;
+
 	@NotBlank(message = "O campo wallet não pode estar em branco")
 	@NotEmpty(message = "O campo wallet não pode estar vazio")
 	private WalletDTO wallet;
-	@NotBlank(message = "O campo cpf não pode estar em branco")
-	@NotEmpty(message = "O campo cpf não pode estar vazio")
+
+	/*@NotBlank(message = "O campo cpf não pode estar em branco")
+	@NotEmpty(message = "O campo cpf não pode estar vazio")*/
 	@Size(min = 11)
 	private String cpf;
+
 
 	
 	
@@ -97,7 +102,6 @@ public class AdultUserDTO implements Serializable {
 		this.job = job;
 	}
 
-
 	public WalletDTO getWallet() {
 		return wallet;
 	}
@@ -116,7 +120,4 @@ public class AdultUserDTO implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-	
-	
 }

@@ -28,6 +28,28 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	@Override
 	@GetMapping(value = "/listall")
 	public List<ChildTaskDTO> listAll() {
+		List<ChildTaskDTO> childTasks = null/*childTaskService.getAllChildTasks()*/;
+		return childTasks;
+	}
+
+	@Override
+	@GetMapping("/findChildtask/{id}")
+	public ResponseEntity<ChildTaskDTO> findById(Long id) {
+		try {
+			//ChildTaskDTO childTask = childTaskService.getChildTaskById(id);
+			/*if (childTask != null) {
+				return ResponseEntity.ok(childTask);
+			} else {
+				return ResponseEntity.notFound().build();
+			}*/
+			return null;
+		} catch (Exception e) {
+			// Registre a exceção para fins de depuração
+			e.printStackTrace();
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 		ChildTaskDTO mock1 = new ChildTaskDTO();
 		ChildTaskDTO mock2 = new ChildTaskDTO();
 
@@ -63,13 +85,6 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 		return childTaskList;
 	}
 
-	@Override
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<ChildTaskDTO> findById(@PathVariable Long id) {
-		ChildTaskDTO mock = new ChildTaskDTO();
-		mock.setId(id);
-		return ResponseEntity.ok(mock);
-	}
 
 	@Override
 	@PostMapping(value = "/create")
