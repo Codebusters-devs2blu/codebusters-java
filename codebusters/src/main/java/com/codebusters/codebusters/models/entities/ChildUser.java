@@ -112,17 +112,5 @@ public class ChildUser {
         this.guardian = guardian;
     }
 
-    @Override
-    public String toString() {
-        return "ChildUser{" +
-                "id=" + id +
-                ", user=" + user +
-                ", birthday=" + birthday +
-                ", wallet=" + wallet +
-                ", objectives=" + objectives +
-                ", tasks=" + tasks +
-                ", family=" + family +
-                ", guardian=" + guardian +
-                '}';
-    }
+  
 }

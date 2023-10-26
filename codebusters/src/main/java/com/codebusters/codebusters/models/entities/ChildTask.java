@@ -87,16 +87,6 @@ public class ChildTask {
         this.childUser = childUser;
     }
 
-    @Override
-    public String toString() {
-        return "ChildTask{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", value=" + taskValue +
-                ", status=" + status +
-                ", adultUser=" + adultUser +
-                ", childUser=" + childUser +
-                '}';
-    }
+  
 
 }

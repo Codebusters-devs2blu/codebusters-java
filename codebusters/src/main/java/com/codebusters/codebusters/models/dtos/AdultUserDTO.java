@@ -115,4 +115,11 @@ public class AdultUserDTO implements Serializable {
 	public void setTasks(List<ChildTaskDTO> tasks) {
 		this.tasks = tasks;
 	}
+
+	@Override
+	public String toString() {
+		return "AdultUserDTO [id=" + id + ", userDTO=" + userDTO + ", email=" + email + ", job=" + job + ", dependents="
+				+ dependents + ", wallet=" + wallet + ", cpf=" + cpf + ", tasks=" + tasks + "]";
+	}
+	
 }

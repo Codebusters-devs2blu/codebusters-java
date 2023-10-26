@@ -63,14 +63,5 @@ public class Objective {
         this.childUser = childUser;
     }
 
-    @Override
-    public String toString() {
-        return "Objective{" +
-                "id=" + id +
-                ", objectiveValue=" + objectiveValue +
-                ", currentAmount=" + currentAmount +
-                ", description='" + description + '\'' +
-                ", childUser=" + childUser +
-                '}';
-    }
+  
 }
