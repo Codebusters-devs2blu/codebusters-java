@@ -1,25 +1,44 @@
 package com.codebusters.codebusters.controllers;
 
+import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codebusters.codebusters.enums.Family;
+import com.codebusters.codebusters.enums.ReleaseType;
 import com.codebusters.codebusters.interfaces.CrudController;
+import com.codebusters.codebusters.models.dtos.AdultUserDTO;
+import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
+import com.codebusters.codebusters.models.dtos.ReleaseDTO;
+import com.codebusters.codebusters.models.dtos.UserDTO;
+import com.codebusters.codebusters.models.dtos.WalletDTO;
+import com.codebusters.codebusters.models.entities.User;
+import com.codebusters.codebusters.models.entities.Wallet;
 import com.codebusters.codebusters.services.ChildUserService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/childUser")
-public class ChildUserController implements CrudController<ChildUserDTO, Long>{
+public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Autowired
-	private ChildUserService childUSerService;
+	private ChildUserService childUserService;
 
 	@Override
 	public List<ChildUserDTO> listAll() {
@@ -27,8 +46,6 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long>{
 		return null;
 	}
 
-<<<<<<< Updated upstream
-=======
 	@GetMapping(value = "/listall")
 	public List<ChildUserDTO> listAllChild(@PathVariable long id) {
 		/*
@@ -107,18 +124,11 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long>{
 
 	}
 
->>>>>>> Stashed changes
+
 	@Override
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildUserDTO> findById(Long id) {
-<<<<<<< Updated upstream
-=======
-		/*
-		 * ChildUserDTO childUserDTO = childUserService.findById(id);
-		 * 
-		 * if (childUserDTO == null) { return ResponseEntity.notFound().build(); }
-		 * 
-		 * return ResponseEntity.ok(childUserDTO);
-		 */
+
 
 		WalletDTO walletDTO = new WalletDTO();
 		walletDTO.setId(1L);
@@ -181,6 +191,7 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long>{
 
 		return ResponseEntity.ok(childUser);
 
+
 	}
 
 	@Override
@@ -204,27 +215,38 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long>{
 	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(Long id) {
->>>>>>> Stashed changes
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@PostMapping(value = "/create")
 	public ResponseEntity<Object> create(@Valid ChildUserDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		/*
+		 * try { // childUserService.create(dto); // Retorne uma resposta adequada de
+		 * acordo com o sucesso da operação return ResponseEntity.ok("Cadastrado"); }
+		 * catch (Exception e) { // Trate exceções e retorne uma resposta adequada em
+		 * caso de erro return ResponseEntity.badRequest().body(e.getMessage()); }
+		 */return null;
+
 	}
 
 	@Override
+	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ChildUserDTO> update(@Valid ChildUserDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return ResponseEntity.ok(dto);
 	}
 
 	@Override
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(Long id) {
-		return null;
 		// TODO Auto-generated method stub
-		
+		try {
+			// childUserService.deleteAdultUser(id);
+			return ResponseEntity.ok("deletado");
+		} catch (Exception e) {
+			// Trate exceções e retorne uma resposta adequada em caso de erro
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 	}
 }
