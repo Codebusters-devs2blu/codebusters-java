@@ -1,11 +1,15 @@
 package com.codebusters.codebusters.controllers;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.codebusters.codebusters.enums.ReleaseType;
+import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
@@ -22,34 +26,41 @@ public class WalletController implements CrudController<WalletDTO, Long> {
 	private WalletService walletService;
 
 	@Override
+	@GetMapping(value = "/listall")
 	public List<WalletDTO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		WalletDTO mock1 = new WalletDTO();
+		mock1.setId(1L);
+		WalletDTO mock2 = new WalletDTO();
+		mock2.setId(2L);
+		List<WalletDTO> walletList = new ArrayList<>();
+		walletList.add(mock1);
+		walletList.add(mock2);
+		return walletList;
 	}
 
 	@Override
-	public ResponseEntity<WalletDTO> findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<WalletDTO> findById(@PathVariable Long id) {
+		WalletDTO mock = new WalletDTO();
+		mock.setId(id);
+		return ResponseEntity.ok(mock);
 	}
 
 	@Override
-	public ResponseEntity<Object> create(@Valid WalletDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	@PostMapping(value = "/create")
+	public ResponseEntity<Object> create(@Valid @RequestBody WalletDTO dto) {
+		return ResponseEntity.ok().build();
 	}
 
 	@Override
-	public ResponseEntity<WalletDTO> update(@Valid WalletDTO dto) {
-		// TODO Auto-generated method stub
-		
-		return null;
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<WalletDTO> update(@Valid @RequestBody @PathVariable WalletDTO dto) {
+		return ResponseEntity.ok(dto);
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteById(Long id) {
-		return null;
-		// TODO Auto-generated method stub
-		
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+		return ResponseEntity.noContent().build();
 	}
 }

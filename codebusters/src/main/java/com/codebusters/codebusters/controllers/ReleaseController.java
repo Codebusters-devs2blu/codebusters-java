@@ -60,7 +60,7 @@ public class ReleaseController  implements CrudController<ReleaseDTO, Long> {
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<ReleaseDTO> update(@Valid @RequestBody ReleaseDTO dto) {
+	public ResponseEntity<ReleaseDTO> update(@Valid @RequestBody @PathVariable ReleaseDTO dto) {
 		return ResponseEntity.ok(dto);
 	}
 
