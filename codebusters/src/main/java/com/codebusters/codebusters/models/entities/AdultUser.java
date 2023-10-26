@@ -109,17 +109,12 @@ public class AdultUser {
         this.tasks = tasks;
     }
 
-    @Override
-    public String toString() {
-        return "AdultUser{" +
-                "id=" + id +
-                ", user=" + user +
-                ", email='" + email + '\'' +
-                ", job='" + job + '\'' +
-                ", dependents=" + dependents +
-                ", wallet=" + wallet +
-                ", cpf='" + cpf + '\'' +
-                ", tasks=" + tasks +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "AdultUser [id=" + id + ", user=" + user + ", email=" + email + ", job=" + job + ", dependents="
+				+ dependents + ", wallet=" + wallet + ", cpf=" + cpf + ", tasks=" + tasks + "]";
+	}
+    
+
+
 }

@@ -3,17 +3,21 @@ package com.codebusters.codebusters.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
+import com.codebusters.codebusters.models.entities.AdultUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,55 +48,63 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<AdultUserDTO> findById(Long id) {
-		/*AdultUserDTO adultUserDTO = adultUserService.findById(id);
+	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {
+		/*System.out.println(id);
+		AdultUserDTO adultUserDTO = adultUserService.findById(id);
 
 		if (adultUserDTO == null) {
 			return ResponseEntity.notFound().build();
 		}
+		return ResponseEntity.ok(adultUserDTO);
 
-		return ResponseEntity.ok(adultUserDTO);*/
-		
+		return ResponseEntity.ok(adultUserDTO);
+		*/
 		return ResponseEntity.ok( createAdult());
 	
 	}
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@Valid AdultUserDTO dto) {
+	public ResponseEntity<Object> create(AdultUserDTO dto) {
+		return ResponseEntity.ok().body(createAdult());
+		
+		/*
 		try {
 			// adultUserService.create(dto);
 			return ResponseEntity.ok("Cadastrado");
 		} catch (Exception e) {
 			// Trate exceções e retorne uma resposta adequada em caso de erro
 			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		}*/
 
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<AdultUserDTO> update(@Valid AdultUserDTO dto) {
-		try {
+	public ResponseEntity<AdultUserDTO> update(AdultUserDTO dto) {
+		return ResponseEntity.ok().body(createAdult());
+		/*try {
 			// adultUserService.save(dto);
 			return ResponseEntity.ok(dto);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		}*/
 
 	}
 
 	@Override
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Object> deleteById(Long id) {
-		// TODO Auto-generated method stub
+	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+		
+		return ResponseEntity.ok().body(createAdult());
+		/*// TODO Auto-generated method stub
 		try {
 			// adultUserService.deleteById(id);
 			return ResponseEntity.ok("deletado");
 		} catch (Exception e) {
 			// Trate exceções e retorne uma resposta adequada em caso de erro
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		}*/
 	}
 	public List<ChildUserDTO> createChild() {
 		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
@@ -152,7 +164,7 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 	
 		walletDTO.setId(1L);
 		walletDTO.setMoney(50.0);
-		walletDTO.setReleaseExtract(createRelease());
+		
 		return walletDTO;
 		
 	}
