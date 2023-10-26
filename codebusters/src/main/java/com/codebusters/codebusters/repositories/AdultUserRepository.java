@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface AdultUserRepository extends JpaRepository<AdultUser, Long> {
 
     Optional<AdultUser> findByEmail(String email);
+    Optional<AdultUser> findById(Long id);
 
 }

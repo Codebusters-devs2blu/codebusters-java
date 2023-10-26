@@ -49,12 +49,10 @@ public class Wallet {
         this.releaseExtract = releaseExtract;
     }
 
-    @Override
-    public String toString() {
-        return "Wallet{" +
-                "id=" + id +
-                ", money=" + money +
-                ", extract=" + releaseExtract +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Wallet [id=" + id + ", money=" + money + ", releaseExtract=" + releaseExtract + "]";
+	}
+    
+   
 }

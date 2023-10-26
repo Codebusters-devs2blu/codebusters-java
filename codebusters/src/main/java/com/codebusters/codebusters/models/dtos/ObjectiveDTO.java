@@ -21,7 +21,8 @@ public class ObjectiveDTO {
 
     private ChildUserDTO childUserDTO;
 
-    public Long getId() {
+   
+	public Long getId() {
         return id;
     }
 
@@ -60,4 +61,11 @@ public class ObjectiveDTO {
     public void setChildUserDTO(ChildUserDTO childUserDTO) {
         this.childUserDTO = childUserDTO;
     }
+/*
+	@Override
+	public String toString() {
+		return "ObjectiveDTO [id=" + id + ", objectiveValue=" + objectiveValue + ", currentAmount=" + currentAmount
+				+ ", description=" + description + ", childUserDTO=" + childUserDTO + "]";
+	}*/
+    
 }

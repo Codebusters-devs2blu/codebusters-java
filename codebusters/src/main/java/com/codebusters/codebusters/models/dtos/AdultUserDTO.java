@@ -21,7 +21,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,17 +34,18 @@ public class AdultUserDTO implements Serializable {
 
 	private Long id;
 
-/*	@NotBlank(message = "O objeto user não pode estar em branco")
-	@NotEmpty(message = "O objeto user não pode estar vazio")*/
-	private UserDTO userDTO;
+	@NotBlank(message = "O objeto user não pode estar em branco")
+	@NotEmpty(message = "O objeto user não pode estar vazio")
+	private UserDTO user;
+
 	@NotBlank(message = "O campo email não pode estar em branco")
 	@NotEmpty(message = "O campo email não pode estar vazio")
 	private String email;
 
 	private String job;
 
-/*	@NotBlank(message = "O campo wallet não pode estar em branco")
-	@NotEmpty(message = "O campo wallet não pode estar vazio")*/
+	@NotBlank(message = "O campo wallet não pode estar em branco")
+	@NotEmpty(message = "O campo wallet não pode estar vazio")
 	private WalletDTO wallet;
 
 	/*@NotBlank(message = "O campo cpf não pode estar em branco")
@@ -50,33 +54,49 @@ public class AdultUserDTO implements Serializable {
 	private String cpf;
 
 
+	
+	
+	@Override
+	public String toString() {
+		return "AdultUserDTO [id=" + id + ", user=" + user + ", email=" + email + ", job=" + job + ", wallet=" + wallet
+				+ ", cpf=" + cpf + "]";
+	}
+
+
 	public Long getId() {
 		return id;
 	}
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public UserDTO getUserDTO() {
-		return userDTO;
+
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
+
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+
 	public String getJob() {
 		return job;
 	}
+
 
 	public void setJob(String job) {
 		this.job = job;
@@ -86,13 +106,16 @@ public class AdultUserDTO implements Serializable {
 		return wallet;
 	}
 
+
 	public void setWallet(WalletDTO wallet) {
 		this.wallet = wallet;
 	}
 
+
 	public String getCpf() {
 		return cpf;
 	}
+
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;

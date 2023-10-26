@@ -59,4 +59,10 @@ public class UserDTO implements Serializable {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", name=" + name + ", password=" + password + ", nickname=" + nickname + "]";
+	}
+    
 }

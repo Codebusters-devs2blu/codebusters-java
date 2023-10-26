@@ -18,7 +18,6 @@ public class WalletDTO  implements Serializable{
     private double money;
 
 
-
     public Long getId() {
         return id;
     }
@@ -35,11 +34,9 @@ public class WalletDTO  implements Serializable{
         this.money = money;
     }
 
-    public List<ReleaseDTO> getReleaseExtract() {
-        return releaseExtract;
-    }
-
-    public void setReleaseExtract(List<ReleaseDTO> releaseExtract) {
-        this.releaseExtract = releaseExtract;
-    }
+	@Override
+	public String toString() {
+		return "WalletDTO [id=" + id + ", money=" + money + "]";
+	}
+    
 }

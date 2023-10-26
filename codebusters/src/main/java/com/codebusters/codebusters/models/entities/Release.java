@@ -86,16 +86,12 @@ public class Release {
         this.wallet = wallet;
     }
 
-    @Override
-    public String toString() {
-        return "Release{" +
-                "id=" + id +
-                ", date=" + date +
-                ", type=" + type +
-                ", value=" + releaseValue +
-                ", description='" + description + '\'' +
-                ", wallet=" + wallet +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Release [id=" + id + ", date=" + date + ", type=" + type + ", releaseValue=" + releaseValue
+				+ ", description=" + description + ", wallet=" + wallet + "]";
+	}
+    
+
 
 }
