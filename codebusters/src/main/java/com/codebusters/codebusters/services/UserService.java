@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,20 +23,18 @@ public class UserService {
 	private ModelMapper modelMapper;
 
 	public List<UserDTO> listAll() {
-		List<User> users = userRepository.findAll();
-		return users.stream()
-				.map(user -> modelMapper.map(user, UserDTO.class))
-				.collect(Collectors.toList());
+		return userRepository.findAll().stream()
+				.map(user -> modelMapper.map(user, UserDTO.class)).toList();
 	}
 
-	public ResponseEntity<UserDTO> findById(Long id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			UserDTO userDTO = modelMapper.map(userOptional.get(), UserDTO.class);
-			return new ResponseEntity<>(userDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public UserDTO findById(Long id) {
+		Optional<User> optional = userRepository.findById(id);
+		UserDTO userDTO = null;
+
+		if (optional.isPresent()) {
+			userDTO = modelMapper.map(optional.get(), UserDTO.class);
 		}
+		return userDTO;
 	}
 
 	public ResponseEntity<UserDTO> create(@Valid UserDTO userDTO) {

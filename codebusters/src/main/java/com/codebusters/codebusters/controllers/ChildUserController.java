@@ -38,48 +38,24 @@ import jakarta.validation.Valid;
 public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Autowired
-	private ChildUserService childUserService;
+	private ChildUserService service;
 
 	@Override
-	public List<ChildUserDTO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@GetMapping(value = "/listall")
-	public List<ChildUserDTO> listAllChild() {
-		/*
-		 * try { List<ChildUserDTO> childUser = childUserService.listAll(id);
-		 * 
-		 * if (!childUser.isEmpty()) { return childUser; } else { // Se a lista estiver
-		 * vazia, você pode retornar null ou uma lista vazia, // dependendo dos
-		 * requisitos. return Collections.emptyList(); // Retorna uma lista vazia. } }
-		 * catch (Exception e) {
-		 * 
-		 * e.printStackTrace();
-		 * 
-		 * return Collections.emptyList(); }
-		 */
-		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
-		ChildUserDTO childUserDTO = setarObject();
-		childUserDTOs.add(childUserDTO);
-		return childUserDTOs;
-
+	public List<ChildUserDTO> listAll() {
+		return service.listAll();
 	}
 
 	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildUserDTO> findById(Long id) {
-		return ResponseEntity.ok(setarObject());
-		/*ChildUserDTO childUserDTO = childUserService.findById(id);
+		ChildUserDTO childUser = service.findById(id);
 
-		if (childUserDTO == null) {
+		if (childUser == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(adultUserDTO);
 
-		*/
-
+		return ResponseEntity.ok(childUser);
 	}
 
 	@Override

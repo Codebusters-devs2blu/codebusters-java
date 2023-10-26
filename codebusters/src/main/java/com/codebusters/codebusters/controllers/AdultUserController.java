@@ -38,29 +38,23 @@ import jakarta.validation.Valid;
 public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 
 	@Autowired
-	private AdultUserService adultUserService;
+	private AdultUserService service;
 
 	@Override
 	public List<AdultUserDTO> listAll() {
-
-		return null;
+		return service.listAll();
 	}
 
 	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {
-		/*System.out.println(id);
-		AdultUserDTO adultUserDTO = adultUserService.findById(id);
+		AdultUserDTO adultUserDTO = service.findById(id);
 
 		if (adultUserDTO == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(adultUserDTO);
 
 		return ResponseEntity.ok(adultUserDTO);
-		*/
-		return ResponseEntity.ok( createAdult());
-	
 	}
 
 	@Override

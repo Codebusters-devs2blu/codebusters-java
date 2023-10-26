@@ -30,14 +30,14 @@ public class ObjectiveService {
 				.collect(Collectors.toList());
 	}
 
-	public ResponseEntity<ObjectiveDTO> findById(Long id) {
-		Optional<Objective> objectiveOptional = objectiveRepository.findById(id);
-		if (objectiveOptional.isPresent()) {
-			ObjectiveDTO objectiveDTO = modelMapper.map(objectiveOptional.get(), ObjectiveDTO.class);
-			return new ResponseEntity<>(objectiveDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ObjectiveDTO findById(Long id) {
+		Optional<Objective> optional = objectiveRepository.findById(id);
+		ObjectiveDTO objectiveDTO = null;
+
+		if (optional.isPresent()) {
+			objectiveDTO = modelMapper.map(optional.get(), ObjectiveDTO.class);
 		}
+		return objectiveDTO;
 	}
 
 	public ResponseEntity<ObjectiveDTO> create(@Valid ObjectiveDTO objectiveDTO) {
