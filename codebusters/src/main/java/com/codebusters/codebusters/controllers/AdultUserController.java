@@ -97,5 +97,51 @@ public class AdultUserController  implements CrudController<AdultUserDTO, Long>{
         }
 	}
 
+<<<<<<< Updated upstream
+=======
+        release.setDate(new java.sql.Timestamp(0));
+        release.setType(ReleaseType.IN);
+        release.setId(1L);
+        List<ReleaseDTO> releaseDTOs = new ArrayList<>();
+        releaseDTOs.add(release);
+		return releaseDTOs;
+		
+	}
+	public WalletDTO createWallet() {
+	
+        
+
+       
+		WalletDTO walletDTO = new WalletDTO();
+	
+		walletDTO.setId(1L);
+		walletDTO.setMoney(50.0);
+		return walletDTO;
+		
+	}
+	public List<ObjectiveDTO> createObjective() {
+		 ObjectiveDTO objective1 = new ObjectiveDTO();
+	        objective1.setId(1L);
+	       
+	        objective1.setCurrentAmount(100.0);
+	        objective1.setDescription("Economizar para um brinquedo");
+	        objective1.setObjectiveValue(50.0);
+	        
+	        ObjectiveDTO objective2 = new ObjectiveDTO();
+	        objective2.setId(1L);
+	        objective2.setCurrentAmount(100.0);
+	        objective2.setDescription("Economizar para um brinquedo");
+	        objective2.setObjectiveValue(50.0);
+	        
+	        List<ObjectiveDTO> objectiveDTO = new ArrayList<>();
+	        objectiveDTO.add(objective2);
+	        objectiveDTO.add(objective1);
+		return objectiveDTO;
+		
+	}
+	public List<ChildTaskDTO> createChildTask() {
+		return null;
+	}
+>>>>>>> Stashed changes
 
 }
