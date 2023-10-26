@@ -33,4 +33,10 @@ public class WalletDTO  implements Serializable{
     public void setMoney(double money) {
         this.money = money;
     }
+
+	@Override
+	public String toString() {
+		return "WalletDTO [id=" + id + ", money=" + money + "]";
+	}
+    
 }

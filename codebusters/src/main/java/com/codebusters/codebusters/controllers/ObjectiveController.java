@@ -33,7 +33,8 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 	@Override
 	@GetMapping(value = "/listAll")
 	public List<ObjectiveDTO> listAll() {
-
+		return objectiveService.listAll();
+		/*
 		UserDTO user01 = new UserDTO();
 		user01.setId(40l);
 		user01.setName("Paulo");
@@ -62,7 +63,7 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 		listDeMetas.add(meta01);
 		listDeMetas.add(meta02);
 
-		return listDeMetas;
+		return listDeMetas;*/
 	}
 
 	@Override

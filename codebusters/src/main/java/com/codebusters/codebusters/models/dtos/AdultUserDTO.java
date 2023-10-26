@@ -19,7 +19,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,16 +34,13 @@ public class AdultUserDTO implements Serializable {
 
 	@NotBlank(message = "O objeto user não pode estar em branco")
 	@NotEmpty(message = "O objeto user não pode estar vazio")
-	private UserDTO userDTO;
+	private UserDTO user;
 	@NotBlank(message = "O campo email não pode estar em branco")
 	@NotEmpty(message = "O campo email não pode estar vazio")
 	private String email;
 	@NotBlank(message = "O campo job não pode estar em branco")
 	@NotEmpty(message = "O campo job não pode estar vazio")
 	private String job;
-	@NotBlank(message = "A lista de dependents não pode estar em branco")
-	@NotEmpty(message = "A lista de dependents não pode estar vazio")
-	private List<ChildUserDTO> dependents;
 	@NotBlank(message = "O campo wallet não pode estar em branco")
 	@NotEmpty(message = "O campo wallet não pode estar vazio")
 	private WalletDTO wallet;
@@ -48,78 +48,75 @@ public class AdultUserDTO implements Serializable {
 	@NotEmpty(message = "O campo cpf não pode estar vazio")
 	@Size(min = 11)
 	private String cpf;
-	@NotBlank(message = "A lista de tasks não pode estar em branco")
-	@NotEmpty(message = "A lista de tasks pode estar vazio")
-	private List<ChildTaskDTO> tasks;
+
+	
+	
+	@Override
+	public String toString() {
+		return "AdultUserDTO [id=" + id + ", user=" + user + ", email=" + email + ", job=" + job + ", wallet=" + wallet
+				+ ", cpf=" + cpf + "]";
+	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public UserDTO getUserDTO() {
-		return userDTO;
+
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
+
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 	public String getJob() {
 		return job;
 	}
 
+
 	public void setJob(String job) {
 		this.job = job;
 	}
 
-	public List<ChildUserDTO> getDependents() {
-		return dependents;
-	}
-
-	public void setDependents(List<ChildUserDTO> dependents) {
-		this.dependents = dependents;
-	}
 
 	public WalletDTO getWallet() {
 		return wallet;
 	}
 
+
 	public void setWallet(WalletDTO wallet) {
 		this.wallet = wallet;
 	}
+
 
 	public String getCpf() {
 		return cpf;
 	}
 
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public List<ChildTaskDTO> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<ChildTaskDTO> tasks) {
-		this.tasks = tasks;
-	}
-
-	@Override
-	public String toString() {
-		return "AdultUserDTO [id=" + id + ", userDTO=" + userDTO + ", email=" + email + ", job=" + job + ", dependents="
-				+ dependents + ", wallet=" + wallet + ", cpf=" + cpf + ", tasks=" + tasks + "]";
-	}
+	
 	
 }

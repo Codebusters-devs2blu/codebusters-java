@@ -83,4 +83,11 @@ public class ReleaseDTO implements Serializable {
     public void setWalletDTO(WalletDTO walletDTO) {
         this.walletDTO = walletDTO;
     }
+
+	@Override
+	public String toString() {
+		return "ReleaseDTO [id=" + id + ", date=" + date + ", type=" + type + ", releaseValue=" + releaseValue
+			+ ", description=" + description + ", walletDTO=" + walletDTO + "]";
+	}
+    
 }
