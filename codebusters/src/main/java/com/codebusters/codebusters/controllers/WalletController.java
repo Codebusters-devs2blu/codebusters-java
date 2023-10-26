@@ -52,4 +52,5 @@ public class WalletController implements CrudController<WalletDTO, Long> {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

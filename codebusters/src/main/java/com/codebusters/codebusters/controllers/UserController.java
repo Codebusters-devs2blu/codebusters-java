@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import com.codebusters.codebusters.models.dtos.UserDTO;
-import com.codebusters.codebusters.services.UserServices;
-
+import com.codebusters.codebusters.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -21,7 +19,7 @@ import jakarta.validation.Valid;
 public class UserController implements CrudController<UserDTO, Long> {
 	@Autowired
 
-	private UserServices userService;
+	private UserService userService;
 
 	@Override
 	public List<UserDTO> listAll() {
