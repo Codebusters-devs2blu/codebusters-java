@@ -4,20 +4,28 @@ import com.codebusters.codebusters.enums.TaskStatus;
 import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.AdultUserDTO;
 import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
+
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.codebusters.codebusters.services.ChildTaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
-
 	@Autowired
 	private ChildTaskService childTaskService;
 
@@ -83,6 +91,5 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		return ResponseEntity.noContent().build();
-
 	}
 }
