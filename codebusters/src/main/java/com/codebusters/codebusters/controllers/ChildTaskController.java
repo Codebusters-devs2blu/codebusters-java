@@ -71,6 +71,7 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	}
 
 	@Override
+
 	@DeleteMapping(value = "/{delete-childtask}")
 	public ResponseEntity<Object> deleteById(Long id) {
 		try {
