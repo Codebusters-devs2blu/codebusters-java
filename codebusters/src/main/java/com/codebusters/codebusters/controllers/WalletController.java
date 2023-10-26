@@ -63,4 +63,5 @@ public class WalletController implements CrudController<WalletDTO, Long> {
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		return ResponseEntity.noContent().build();
 	}
+	
 }
