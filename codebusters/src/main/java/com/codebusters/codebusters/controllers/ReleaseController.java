@@ -38,6 +38,15 @@ public class ReleaseController  implements CrudController<ReleaseDTO, Long> {
 		walletMock.setId(2L);
 		mock1.setWalletDTO(walletMock);
 		ReleaseDTO mock2 = new ReleaseDTO();
+		Date currentDate2 = new Date();
+		Timestamp defaultTimestamp2 = new Timestamp(currentDate2.getTime());
+		mock2.setDate(defaultTimestamp);
+		mock2.setId(1L);
+		mock2.setDescription("example extract1");
+		mock2.setType(ReleaseType.OUT);
+		WalletDTO walletMock2 = new WalletDTO();
+		walletMock2.setId(2L);
+		mock2.setWalletDTO(walletMock2);
 		List<ReleaseDTO> releaseList = new ArrayList<>();
 		releaseList.add(mock1);
 		releaseList.add(mock2);
