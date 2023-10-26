@@ -74,8 +74,6 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
 		releaseDTOs.add(release);
-		walletDTO.setReleaseExtract(releaseDTOs);
-
 		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
 		UserDTO userFather = new UserDTO();
 		userFather.setId(40l);
@@ -126,16 +124,11 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	}
 
+
 	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildUserDTO> findById(Long id) {
-		/*
-		 * ChildUserDTO childUserDTO = childUserService.findById(id);
-		 * 
-		 * if (childUserDTO == null) { return ResponseEntity.notFound().build(); }
-		 * 
-		 * return ResponseEntity.ok(childUserDTO);
-		 */
+
 
 		WalletDTO walletDTO = new WalletDTO();
 		walletDTO.setId(1L);
@@ -151,7 +144,6 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
 		releaseDTOs.add(release);
-		walletDTO.setReleaseExtract(releaseDTOs);
 
 		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
 		UserDTO userFather = new UserDTO();
@@ -199,6 +191,31 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 		return ResponseEntity.ok(childUser);
 
+
+	}
+
+	@Override
+	@PostMapping(value = "/create")
+	public ResponseEntity<Object> create(@Valid ChildUserDTO dto) {
+		/*
+		 * try { // childUserService.create(dto); // Retorne uma resposta adequada de
+		 * acordo com o sucesso da operação return ResponseEntity.ok("Cadastrado"); }
+		 * catch (Exception e) { // Trate exceções e retorne uma resposta adequada em
+		 * caso de erro return ResponseEntity.badRequest().body(e.getMessage()); }
+		 */return null;
+
+	}
+
+	@Override
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<ChildUserDTO> update(@Valid ChildUserDTO dto) {
+		return ResponseEntity.ok(dto);
+	}
+
+	@Override
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Object> deleteById(Long id) {
+		return null;
 	}
 
 	@Override
