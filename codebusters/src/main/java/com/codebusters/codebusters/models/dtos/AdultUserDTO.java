@@ -48,8 +48,6 @@ public class AdultUserDTO implements Serializable {
 	@NotEmpty(message = "O campo cpf não pode estar vazio")*/
 	@Size(min = 11)
 	private String cpf;
-
-
 	
 	
 	@Override

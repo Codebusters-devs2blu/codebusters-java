@@ -3,31 +3,33 @@ package com.codebusters.codebusters.controllers;
 
 import com.codebusters.codebusters.enums.Family;
 import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
 import com.codebusters.codebusters.models.dtos.UserDTO;
-import com.codebusters.codebusters.models.entities.ChildUser;
-import com.codebusters.codebusters.models.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codebusters.codebusters.models.entities.Objective;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.services.ObjectiveService;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/objective")
 public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
-	@Autowired
+
 	private ObjectiveService service;
+	private final ModelMapper modelMapper;
+
+	public ObjectiveController(ObjectiveService service, ModelMapper modelMapper) {
+		this.service = service;
+		this.modelMapper = modelMapper;
+	}
 
 
 	@Override
@@ -38,7 +40,7 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ObjectiveDTO> findById(Long id) {
+	public ResponseEntity<ObjectiveDTO> findById(@PathVariable Long id) {
 		ObjectiveDTO objective = service.findById(id);
 
 		if (objective == null) {
@@ -49,77 +51,41 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(ObjectiveDTO dto) {
+	public ResponseEntity<Object> create(ObjectiveDTO objectiveDTO) {
 
-		UserDTO user01 = new UserDTO();
-		user01.setId(40l);
-		user01.setName("Paulo");
-		user01.setNickname("PaulinhoGameplays");
-		user01.setPassword("123456");
+		Objective createdObjective = service.createObjective(objectiveDTO);
 
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
+		ObjectiveDTO createdObjectiveDTO = modelMapper.map(createdObjective, ObjectiveDTO.class);
 
-		ObjectiveDTO meta01 = new ObjectiveDTO();
-		meta01.setId(01l);
-		meta01.setObjectiveValue(3000);
-		meta01.setCurrentAmount(250);
-		meta01.setChildUserDTO(childUserDTO01);
-		meta01.setDescription("Apple Watch dos Cria");
-
-
-		return ResponseEntity.ok().body(meta01);
+		return ResponseEntity.status(201).body(createdObjectiveDTO);
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<ObjectiveDTO> update(ObjectiveDTO dto) {
-
-		UserDTO user01 = new UserDTO();
-		user01.setId(40l);
-		user01.setName("Paulo");
-		user01.setNickname("PaulinhoGameplays");
-		user01.setPassword("123456");
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO meta01 = new ObjectiveDTO();
-		meta01.setId(01l);
-		meta01.setObjectiveValue(3000);
-		meta01.setCurrentAmount(250);
-		meta01.setChildUserDTO(childUserDTO01);
-		meta01.setDescription("Apple Watch dos Cria");
-
-
-		return ResponseEntity.ok().body(meta01);
+	public ResponseEntity<ObjectiveDTO> update(@Valid @RequestBody ObjectiveDTO dto) {
+		try{
+			Objective updatedObjective = service.updateObjective(dto);
+			ObjectiveDTO updatedObjectiveDTO = modelMapper.map(updatedObjective, ObjectiveDTO.class);
+			return ResponseEntity.ok(updatedObjectiveDTO);
+		}catch (Exception e) {
+			return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@Override
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+		try {
+			boolean deleted = service.deleteObjective(id);
 
-
-		UserDTO user01 = new UserDTO();
-		user01.setId(40l);
-		user01.setName("Paulo");
-		user01.setNickname("PaulinhoGameplays");
-		user01.setPassword("123456");
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO meta01 = new ObjectiveDTO();
-		meta01.setId(01l);
-		meta01.setObjectiveValue(3000);
-		meta01.setCurrentAmount(250);
-		meta01.setChildUserDTO(childUserDTO01);
-		meta01.setDescription("Apple Watch dos Cria");
-
-		return ResponseEntity.ok().body(meta01);
+			if (deleted) {
+				return ResponseEntity.ok().build();
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 }
