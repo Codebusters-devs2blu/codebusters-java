@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReleaseService {
@@ -24,20 +23,18 @@ public class ReleaseService {
 	private ModelMapper modelMapper;
 
 	public List<ReleaseDTO> listAll() {
-		List<Release> releases = releaseRepository.findAll();
-		return releases.stream()
-				.map(release -> modelMapper.map(release, ReleaseDTO.class))
-				.collect(Collectors.toList());
+		return releaseRepository.findAll().stream()
+				.map(release -> modelMapper.map(release, ReleaseDTO.class)).toList();
 	}
 
-	public ResponseEntity<ReleaseDTO> findById(Long id) {
-		Optional<Release> releaseOptional = releaseRepository.findById(id);
-		if (releaseOptional.isPresent()) {
-			ReleaseDTO releaseDTO = modelMapper.map(releaseOptional.get(), ReleaseDTO.class);
-			return new ResponseEntity<>(releaseDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ReleaseDTO findById(Long id) {
+		Optional<Release> optional = releaseRepository.findById(id);
+		ReleaseDTO releaseDTO = null;
+
+		if (optional.isPresent()) {
+			releaseDTO = modelMapper.map(optional.get(), ReleaseDTO.class);
 		}
+		return releaseDTO;
 	}
 
 	public ResponseEntity<ReleaseDTO> create(@Valid ReleaseDTO releaseDTO) {

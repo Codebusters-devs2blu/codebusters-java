@@ -1,6 +1,9 @@
 package com.codebusters.codebusters.services;
 
 
+import com.codebusters.codebusters.models.dtos.*;
+import com.codebusters.codebusters.models.entities.*;
+
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.models.entities.AdultUser;
@@ -17,6 +20,7 @@ import com.codebusters.codebusters.repositories.AdultUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.codebusters.codebusters.models.dtos.AdultUserDTO;
 
@@ -41,6 +45,21 @@ public class AdultUserService {
 		this.walletService = walletService;
 		this.modelMapper = modelMapper;
 	}
+
+	public List<AdultUserDTO> listAll() {
+		return adultUserRepository.findAll().stream()
+				.map(adultUser -> mapper.map(adultUser, AdultUserDTO.class)).toList();
+	}
+	public AdultUserDTO findById(Long id) {
+		Optional<AdultUser> optional = adultUserRepository.findById(id);
+		AdultUserDTO adultUserDTO = null;
+
+		if (optional.isPresent()) {
+			adultUserDTO = mapper.map(optional.get(), AdultUserDTO.class);
+		}
+		return adultUserDTO;
+	}
+
 
 	@Transactional
 	public AdultUser createAdultUser(AdultUserDTO adultUserDTO) {

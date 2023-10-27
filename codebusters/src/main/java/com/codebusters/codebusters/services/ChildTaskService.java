@@ -1,6 +1,5 @@
 package com.codebusters.codebusters.services;
 
-import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
 import com.codebusters.codebusters.models.entities.ChildTask;
 import com.codebusters.codebusters.repositories.ChildTaskRepository;
@@ -31,14 +30,15 @@ public class ChildTaskService {
 				.collect(Collectors.toList());
 	}
 
-	public ResponseEntity<ChildTaskDTO> findById(Long id) {
-		Optional<ChildTask> childTaskOptional = childTaskRepository.findById(id);
-		if (childTaskOptional.isPresent()) {
-			ChildTaskDTO childTaskDTO = modelMapper.map(childTaskOptional.get(), ChildTaskDTO.class);
-			return new ResponseEntity<>(childTaskDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ChildTaskDTO findById(Long id) {
+		Optional<ChildTask> optional = childTaskRepository.findById(id);
+		ChildTaskDTO childTask = null;
+
+		if (optional.isPresent()) {
+			childTask = modelMapper.map(optional.get(), ChildTaskDTO.class);
 		}
+
+		return childTask;
 	}
 
 	public ResponseEntity<ChildTaskDTO> create(@Valid ChildTaskDTO childTaskDTO) {

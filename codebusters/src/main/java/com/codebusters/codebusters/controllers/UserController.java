@@ -2,8 +2,10 @@ package com.codebusters.codebusters.controllers;
 
 import java.util.List;
 
+import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,18 +24,24 @@ import jakarta.validation.Valid;
 public class UserController implements CrudController<UserDTO, Long> {
 	@Autowired
 
-	private UserService userService;
+	private UserService service;
 
 	@Override
+	@GetMapping(value = "/listall")
 	public List<UserDTO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return service.listAll();
 	}
 
 	@Override
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDTO user = service.findById(id);
+
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		return ResponseEntity.ok(user);
 	}
 
 	@Override
