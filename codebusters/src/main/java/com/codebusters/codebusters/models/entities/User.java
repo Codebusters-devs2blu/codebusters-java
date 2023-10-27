@@ -64,13 +64,10 @@ public class User {
         this.nickname = nickname;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", nickname=" + nickname + "]";
+	}
+    
+
 }

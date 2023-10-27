@@ -38,198 +38,125 @@ import jakarta.validation.Valid;
 public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Autowired
-	private ChildUserService childUserService;
+	private ChildUserService service;
 
 	@Override
-	public List<ChildUserDTO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@GetMapping(value = "/listall")
-	public List<ChildUserDTO> listAllChild(@PathVariable long id) {
-		/*
-		 * try { List<ChildUserDTO> childUser = childUserService.listAll(id);
-		 * 
-		 * if (!childUser.isEmpty()) { return childUser; } else { // Se a lista estiver
-		 * vazia, você pode retornar null ou uma lista vazia, // dependendo dos
-		 * requisitos. return Collections.emptyList(); // Retorna uma lista vazia. } }
-		 * catch (Exception e) {
-		 * 
-		 * e.printStackTrace();
-		 * 
-		 * return Collections.emptyList(); }
-		 */
-		WalletDTO walletDTO = new WalletDTO();
-		walletDTO.setId(1L);
-		walletDTO.setMoney(50.0);
-
-		ReleaseDTO release = new ReleaseDTO();
-		release.setDescription("Compra de comida");
-		release.setReleaseValue(5.5);
-		release.setWalletDTO(walletDTO);
-		release.setDate(new java.sql.Timestamp(0));
-		release.setType(ReleaseType.IN);
-		release.setId(1L);
-
-		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
-		releaseDTOs.add(release);
-		walletDTO.setReleaseExtract(releaseDTOs);
-
-		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
-		UserDTO userFather = new UserDTO();
-		userFather.setId(40l);
-		userFather.setName("Paulo");
-		userFather.setNickname("PaulinhoGameplays");
-		userFather.setPassword("123456");
-
-		AdultUserDTO adultUserDTO = new AdultUserDTO();
-		adultUserDTO.setUserDTO(userFather);
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO objective1 = new ObjectiveDTO();
-		objective1.setId(1L);
-		objective1.setChildUserDTO(childUserDTO01);
-		objective1.setCurrentAmount(100.0);
-		objective1.setDescription("Economizar para um brinquedo");
-		objective1.setObjectiveValue(50.0);
-
-		ObjectiveDTO objective2 = new ObjectiveDTO();
-		objective2.setId(1L);
-		objective2.setChildUserDTO(childUserDTO01);
-		objective2.setCurrentAmount(100.0);
-		objective2.setDescription("Economizar para um brinquedo");
-		objective2.setObjectiveValue(50.0);
-
-		List<ObjectiveDTO> listObjective = new ArrayList<>();
-		listObjective.add(objective2);
-		listObjective.add(objective1);
-		List<ChildTaskDTO> childTaskDTO = new ArrayList<>();
-
-		ChildUserDTO childUser = new ChildUserDTO();
-		childUser.setBirthday(new Date());
-		childUser.setFamily(Family.DAD);
-		childUser.setGuardian(adultUserDTO);
-		childUser.setId(1L);
-		childUser.setWalletDTO(walletDTO);
-		childUser.setTasks(childTaskDTO);
-		childUser.setUserDTO(user);
-		childUser.setWalletDTO(new WalletDTO());
-		childUser.setObjectives(listObjective);
-
-		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
-		childUserDTOs.add(childUser);
-		return childUserDTOs;
-
+	public List<ChildUserDTO> listAll() {
+		return service.listAll();
 	}
 
 	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildUserDTO> findById(Long id) {
-		/*
-		 * ChildUserDTO childUserDTO = childUserService.findById(id);
-		 * 
-		 * if (childUserDTO == null) { return ResponseEntity.notFound().build(); }
-		 * 
-		 * return ResponseEntity.ok(childUserDTO);
-		 */
+		ChildUserDTO childUser = service.findById(id);
 
-		WalletDTO walletDTO = new WalletDTO();
-		walletDTO.setId(1L);
-		walletDTO.setMoney(50.0);
-
-		ReleaseDTO release = new ReleaseDTO();
-		release.setDescription("Compra de comida");
-		release.setReleaseValue(5.5);
-		release.setWalletDTO(walletDTO);
-		release.setDate(new java.sql.Timestamp(0));
-		release.setType(ReleaseType.IN);
-		release.setId(1L);
-
-		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
-		releaseDTOs.add(release);
-		walletDTO.setReleaseExtract(releaseDTOs);
-
-		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
-		UserDTO userFather = new UserDTO();
-		userFather.setId(40l);
-		userFather.setName("Paulo");
-		userFather.setNickname("PaulinhoGameplays");
-		userFather.setPassword("123456");
-
-		AdultUserDTO adultUserDTO = new AdultUserDTO();
-		adultUserDTO.setUserDTO(userFather);
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO objective1 = new ObjectiveDTO();
-		objective1.setId(1L);
-		objective1.setChildUserDTO(childUserDTO01);
-		objective1.setCurrentAmount(100.0);
-		objective1.setDescription("Economizar para um brinquedo");
-		objective1.setObjectiveValue(50.0);
-
-		ObjectiveDTO objective2 = new ObjectiveDTO();
-		objective2.setId(1L);
-		objective2.setChildUserDTO(childUserDTO01);
-		objective2.setCurrentAmount(100.0);
-		objective2.setDescription("Economizar para um brinquedo");
-		objective2.setObjectiveValue(50.0);
-
-		List<ObjectiveDTO> listObjective = new ArrayList<>();
-		listObjective.add(objective2);
-		listObjective.add(objective1);
-		List<ChildTaskDTO> childTaskDTO = new ArrayList<>();
-
-		ChildUserDTO childUser = new ChildUserDTO();
-		childUser.setBirthday(new Date());
-		childUser.setFamily(Family.DAD);
-		childUser.setGuardian(adultUserDTO);
-		childUser.setId(1L);
-		childUser.setWalletDTO(walletDTO);
-		childUser.setTasks(childTaskDTO);
-		childUser.setUserDTO(user);
-		childUser.setWalletDTO(new WalletDTO());
-		childUser.setObjectives(listObjective);
+		if (childUser == null) {
+			return ResponseEntity.notFound().build();
+		}
 
 		return ResponseEntity.ok(childUser);
-
 	}
 
 	@Override
 	@PostMapping(value = "/create")
 	public ResponseEntity<Object> create(@Valid ChildUserDTO dto) {
+		return ResponseEntity.ok().body(setarObject());
 		/*
 		 * try { // childUserService.create(dto); // Retorne uma resposta adequada de
 		 * acordo com o sucesso da operação return ResponseEntity.ok("Cadastrado"); }
 		 * catch (Exception e) { // Trate exceções e retorne uma resposta adequada em
 		 * caso de erro return ResponseEntity.badRequest().body(e.getMessage()); }
-		 */return null;
+		 */
 
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ChildUserDTO> update(@Valid ChildUserDTO dto) {
-		return ResponseEntity.ok(dto);
+		return ResponseEntity.ok().body(setarObject());
+		/*
+		 * try { // childUserService.save(dto); return ResponseEntity.ok(dto); } catch
+		 * (Exception e) { return
+		 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); }
+		 */
 	}
 
 	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(Long id) {
-		// TODO Auto-generated method stub
-		try {
-			// childUserService.deleteAdultUser(id);
-			return ResponseEntity.ok("deletado");
-		} catch (Exception e) {
-			// Trate exceções e retorne uma resposta adequada em caso de erro
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-
+		return ResponseEntity.ok().body(setarObject());
+		/*
+		 * // TODO Auto-generated method stub try { // childUserService.deleteById(id);
+		 * return ResponseEntity.ok("deletado"); } catch (Exception e) { // Trate
+		 * exceções e retorne uma resposta adequada em caso de erro return
+		 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); }
+		 */
 	}
+
+	public ChildUserDTO setarObject() {
+		WalletDTO walletDTO = new WalletDTO();
+		walletDTO.setId(1L);
+		walletDTO.setMoney(50.0);
+
+		ReleaseDTO release = new ReleaseDTO();
+		release.setDescription("Compra de comida");
+		release.setReleaseValue(5.5);
+		release.setWalletDTO(walletDTO);
+		release.setDate(new java.sql.Timestamp(0));
+		release.setType(ReleaseType.IN);
+		release.setId(1L);
+
+		List<ReleaseDTO> releaseDTOs = new ArrayList<>();
+		releaseDTOs.add(release);
+
+		UserDTO user = new UserDTO();
+		user.setId(1L);
+		user.setName("Alice Pereira");
+		user.setNickname("1234");
+		user.setPassword( "alice1234");
+		
+		UserDTO userFather = new UserDTO();
+		userFather.setId(40l);
+		userFather.setName("Paulo");
+		userFather.setNickname("PaulinhoGameplays");
+		userFather.setPassword("123456");
+
+		AdultUserDTO adultUserDTO = new AdultUserDTO();
+		adultUserDTO.setUser(userFather);
+
+		ChildUserDTO childUserDTO01 = new ChildUserDTO();
+		childUserDTO01.setId(40l);
+		childUserDTO01.setFamily(Family.DAD);
+
+		ObjectiveDTO objective1 = new ObjectiveDTO();
+		objective1.setId(1L);
+		objective1.setChildUserDTO(childUserDTO01);
+		objective1.setCurrentAmount(100.0);
+		objective1.setDescription("Economizar para um brinquedo");
+		objective1.setObjectiveValue(50.0);
+
+		ObjectiveDTO objective2 = new ObjectiveDTO();
+		objective2.setId(1L);
+		objective2.setChildUserDTO(childUserDTO01);
+		objective2.setCurrentAmount(100.0);
+		objective2.setDescription("Economizar para um brinquedo");
+		objective2.setObjectiveValue(50.0);
+
+		List<ObjectiveDTO> listObjective = new ArrayList<>();
+		listObjective.add(objective2);
+		listObjective.add(objective1);
+		List<ChildTaskDTO> childTaskDTO = new ArrayList<>();
+
+		ChildUserDTO childUser = new ChildUserDTO();
+		childUser.setBirthday(new Date());
+		childUser.setFamily(Family.DAD);
+		childUser.setGuardian(adultUserDTO);
+		childUser.setId(1L);
+		childUser.setWalletDTO(walletDTO);
+		childUser.setUserDTO(user);
+		childUser.setWalletDTO(new WalletDTO());
+		return childUser;
+	}
+
 }

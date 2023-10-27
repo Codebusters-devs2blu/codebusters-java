@@ -6,13 +6,10 @@ import com.codebusters.codebusters.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,37 +21,33 @@ public class UserService {
 	private ModelMapper modelMapper;
 
 	public List<UserDTO> listAll() {
-		List<User> users = userRepository.findAll();
-		return users.stream()
-				.map(user -> modelMapper.map(user, UserDTO.class))
-				.collect(Collectors.toList());
+		return userRepository.findAll().stream()
+				.map(user -> modelMapper.map(user, UserDTO.class)).toList();
 	}
 
-	public ResponseEntity<UserDTO> findById(Long id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		if (userOptional.isPresent()) {
-			UserDTO userDTO = modelMapper.map(userOptional.get(), UserDTO.class);
-			return new ResponseEntity<>(userDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public UserDTO findById(Long id) {
+		Optional<User> optional = userRepository.findById(id);
+		UserDTO userDTO = null;
+
+		if (optional.isPresent()) {
+			userDTO = modelMapper.map(optional.get(), UserDTO.class);
 		}
+		return userDTO;
 	}
 
-	public ResponseEntity<UserDTO> create(@Valid UserDTO userDTO) {
+	public UserDTO create(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
 		User createdUser = userRepository.save(user);
-		UserDTO createdUserDTO = modelMapper.map(createdUser, UserDTO.class);
-		return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
+		return modelMapper.map(createdUser, UserDTO.class);
 	}
 
-	public ResponseEntity<UserDTO> update(@Valid UserDTO userDTO) {
+	public UserDTO update(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
 		if (userRepository.existsById(user.getId())) {
 			User updatedUser = userRepository.save(user);
-			UserDTO updatedUserDTO = modelMapper.map(updatedUser, UserDTO.class);
-			return new ResponseEntity<>(updatedUserDTO, HttpStatus.OK);
+			return modelMapper.map(updatedUser, UserDTO.class);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return null; // Ou lançar uma exceção adequada, por exemplo, UserNotFoundException
 		}
 	}
 

@@ -1,22 +1,22 @@
 package com.codebusters.codebusters.models.dtos;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class WalletDTO  implements Serializable{
     private static final Long serialVersionUID = 42L;
     private Long id;
 
-    @NotBlank(message = "O campo money não pode estar em branco")
-    @NotEmpty(message = "O campo money não pode estar vazio")
+/*    @NotBlank(message = "O campo money não pode estar em branco")
+    @NotEmpty(message = "O campo money não pode estar vazio")*/
     private double money;
+
 
     public Long getId() {
         return id;
@@ -33,4 +33,10 @@ public class WalletDTO  implements Serializable{
     public void setMoney(double money) {
         this.money = money;
     }
+
+	@Override
+	public String toString() {
+		return "WalletDTO [id=" + id + ", money=" + money + "]";
+	}
+    
 }
