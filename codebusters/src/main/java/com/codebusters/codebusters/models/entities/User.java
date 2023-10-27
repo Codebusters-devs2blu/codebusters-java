@@ -19,17 +19,18 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
-    //profileImage --> VERIFICAR SE DER TEMPO
-
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     public User() {
     }
 
-    public User(Long id, String name, String password, String nickname) {
+    public User(Long id, String name, String password, String nickname, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.nickname = nickname;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -64,10 +65,22 @@ public class User {
         this.nickname = nickname;
     }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", nickname=" + nickname + "]";
-	}
-    
+    public Boolean getActive() {
+        return isActive;
+    }
 
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

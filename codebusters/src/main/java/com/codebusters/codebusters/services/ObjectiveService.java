@@ -2,15 +2,12 @@ package com.codebusters.codebusters.services;
 
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.entities.AdultUser;
 import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.Objective;
 import com.codebusters.codebusters.repositories.ObjectiveRepository;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +39,6 @@ public class ObjectiveService {
 		}
 		return objectiveDTO;
 	}
-
 	public Objective createObjective(@Valid ObjectiveDTO objectiveDTO) {
 		Objective newObjective = new Objective();
 		newObjective.setObjectiveValue(objectiveDTO.getObjectiveValue());
@@ -75,7 +71,7 @@ public class ObjectiveService {
 		return objectiveRepository.save(existingObjective);
 	}
 
-	public boolean deleteObjective(Long id) {
+	public boolean deleteById(Long id) {
 		try {
 			Optional<Objective> optionalObjective = objectiveRepository.findById(id);
 
@@ -83,11 +79,9 @@ public class ObjectiveService {
 				objectiveRepository.deleteById(id);
 				return true;
 			} else {
-				// Objective not found
 				return false;
 			}
 		} catch (Exception e) {
-			// Handle exceptions, log errors, etc.
 			return false;
 		}
 	}

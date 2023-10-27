@@ -1,11 +1,7 @@
 package com.codebusters.codebusters.controllers;
 
-
-import com.codebusters.codebusters.enums.Family;
 import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.entities.Objective;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -13,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import com.codebusters.codebusters.services.ObjectiveService;
-
 
 import java.util.List;
 
@@ -76,15 +70,11 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		try {
-			boolean deleted = service.deleteObjective(id);
-
-			if (deleted) {
-				return ResponseEntity.ok().build();
-			} else {
-				return ResponseEntity.notFound().build();
-			}
+			service.deleteById(id);
+			return ResponseEntity.ok("deletado");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+			return ResponseEntity.notFound().build();
 		}
 	}
 

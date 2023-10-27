@@ -1,6 +1,8 @@
 package com.codebusters.codebusters.models.dtos;
 
 import com.codebusters.codebusters.models.entities.ChildUser;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
@@ -9,16 +11,16 @@ import jakarta.validation.constraints.NotEmpty;
 public class ObjectiveDTO {
     private Long id;
 
-
+    @JsonProperty("objectiveValue")
     //@NotEmpty(message = "O campo valor da meta não pode estar vazio")
     private double objectiveValue;
-
+    @JsonProperty("currentAmount")
     private double currentAmount;
-
+    @JsonProperty("description")
     /*@NotBlank(message = "O campo descrição não pode estar em branco")
     @NotEmpty(message = "O campo descrição não pode estar vazio")*/
     private String description;
-
+    @JsonProperty("childUserDTO")
     private ChildUserDTO childUserDTO;
 
    

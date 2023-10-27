@@ -5,46 +5,36 @@ import java.util.Date;
 import java.util.List;
 
 import com.codebusters.codebusters.enums.Family;
-import com.codebusters.codebusters.enums.TaskStatus;
-import com.codebusters.codebusters.models.entities.AdultUser;
-import com.codebusters.codebusters.models.entities.ChildTask;
-import com.codebusters.codebusters.models.entities.ChildUser;
-import com.codebusters.codebusters.models.entities.Objective;
-import com.codebusters.codebusters.models.entities.User;
-import com.codebusters.codebusters.models.entities.Wallet;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class ChildUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	
 
-	@NotBlank(message = "O objeto user não pode estar em branco")
-	@NotEmpty(message = "O objeto user não pode estar vazio")
-    private UserDTO userDTO;
-    @NotBlank(message = "O campo birthday não pode estar em branco")
-	@NotEmpty(message = "O campo birthday não pode estar vazio")
-    private Date birthday;
-
-    @NotBlank(message = "O objeto wallet não pode estar em branco")
-	@NotEmpty(message = "O objeto wallet não pode estar vazio")
-    private WalletDTO walletDTO;
-
-    @NotBlank(message = "O objeto family não pode estar em branco")
-	@NotEmpty(message = "O objeto family não pode estar vazio")
-    private Family family;
-
-    @NotBlank(message = "O objeto childUser não pode estar em branco")
-	@NotEmpty(message = "O objeto childUser não pode estar vazio")
-    private AdultUserDTO guardian;
+	@JsonProperty("userDTO")
+	@NotNull
+	private UserDTO userDTO;
+	@JsonProperty("birthday")
+	@NotNull
+	private Date birthday;
+	@JsonProperty("walletDTO")
+	@NotNull
+	private WalletDTO walletDTO;
+	@JsonProperty("family")
+	@NotNull
+	@Enumerated(EnumType.ORDINAL)
+	private Family family;
+	@JsonProperty("guardian")
+	@NotNull
+	private AdultUserDTO guardian;
 
 	public Long getId() {
 		return id;
@@ -99,7 +89,5 @@ public class ChildUserDTO implements Serializable {
 		return "ChildUserDTO [id=" + id + ", userDTO=" + userDTO + ", birthday=" + birthday + ", walletDTO=" + walletDTO
 				+ ", family=" + family + ", guardian=" + guardian + "]";
 	}
-
-	
 
 }

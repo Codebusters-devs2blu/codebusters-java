@@ -1,13 +1,16 @@
 package com.codebusters.codebusters.services;
 
 
+import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.models.entities.AdultUser;
+import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.User;
 import com.codebusters.codebusters.models.entities.Wallet;
 import com.codebusters.codebusters.repositories.AdultUserRepository;
 import com.codebusters.codebusters.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -25,6 +28,9 @@ public class AdultUserService {
 
 	@Autowired
 	private final AdultUserRepository adultUserRepository;
+
+	@Autowired
+	ChildUserService childUserService;
 
 	private final UserService userService;
 	private final UserRepository userRepository;
@@ -44,27 +50,20 @@ public class AdultUserService {
 		return adultUserRepository.findAll().stream()
 				.map(adultUser -> mapper.map(adultUser, AdultUserDTO.class)).toList();
 	}
-/*	public AdultUserDTO findById(Long id) {
-		Optional<AdultUser> optional = adultUserRepository.findById(id);
-		AdultUserDTO adultUserDTO = null;
-
-		if (optional.isPresent()) {
-			adultUserDTO = mapper.map(optional.get(), AdultUserDTO.class);
-		}
-		return adultUserDTO;
-	}*/
 
 
 	@Transactional
 	public AdultUser createAdultUser(AdultUserDTO adultUserDTO) {
 		// Crie um novo User usando o UserService
 		UserDTO userDTO = adultUserDTO.getUser();
-
-		System.out.println(adultUserDTO.getUser());
+		System.out.println(userDTO);
+		//userCria = userService.findById(userDTO.getId());
 
 		if (userDTO == null) {
 			throw new IllegalArgumentException("UserDTO não pode ser nulo");
 		}
+
+		userDTO.setActive(true);
 
 		UserDTO createdUserDTO = userService.create(userDTO);
 
@@ -91,27 +90,86 @@ public class AdultUserService {
 	}
 
 
+	/*@Transactional
+	public AdultUser updateAdultUser(AdultUser updatedData) {
+		// Verifique se o AdultUser existe no banco de dados
+		Long adultUserId = updatedData.getId();
+		AdultUser existingAdultUser = adultUserRepository.findById(adultUserId)
+				.orElseThrow(() -> new EntityNotFoundException("AdultUser not found with ID: " + adultUserId));
+
+		// Atualize apenas os campos que estão presentes no JSON e não são nulos
+		if (updatedData.getEmail() != null) {
+			existingAdultUser.setEmail(updatedData.getEmail());
+		}
+		if (updatedData.getJob() != null) {
+			existingAdultUser.setJob(updatedData.getJob());
+		}
+
+		// Continue verificando e atualizando outros campos conforme necessário
+
+		// Em seguida, atualize o User associado usando o UserService
+		UserDTO userDTO = mapper.map(updatedData.getUser(), UserDTO.class);
+		UserDTO updatedUserDTO = userService.update(userDTO);
+
+
+		// Verifique se o User foi atualizado com sucesso
+		if (updatedUserDTO == null) {
+			throw new EntityNotFoundException("User not found with ID: " + existingAdultUser.getUser().getId());
+		}
+
+		// Atualize o AdultUser no banco de dados
+		AdultUser updatedAdultUser = adultUserRepository.save(existingAdultUser);
+
+		// Configure o User atualizado no objeto AdultUser
+		updatedAdultUser.setUser(mapper.map(updatedUserDTO, User.class));
+
+		return updatedAdultUser;
+	}*/
 
 	@Transactional
-	public AdultUser updateAdultUser(AdultUserDTO adultUserDTO) {
-		// Encontre o AdultUser existente no repositório
-		AdultUser existingAdultUser = adultUserRepository.findById(adultUserDTO.getId())
-				.orElseThrow(() -> new RuntimeException("AdultUser not found"));
+	public AdultUser updateAdultUser(AdultUser updatedData) {
+		// Verifique se o AdultUser existe no banco de dados
+		Long adultUserId = updatedData.getId();
+		AdultUser existingAdultUser = adultUserRepository.findById(adultUserId)
+				.orElseThrow(() -> new EntityNotFoundException("AdultUser not found with ID: " + adultUserId));
+		
+		// Atualize apenas os campos que estão presentes no JSON e não são nulos
+		if (updatedData.getEmail() != null) {
+			existingAdultUser.setEmail(updatedData.getEmail());
+		}
+		if (updatedData.getJob() != null) {
+			existingAdultUser.setJob(updatedData.getJob());
+		}
 
-		// Atualize as informações do User (nome, senha e nickname)
-		UserDTO userDTO = adultUserDTO.getUser();
-		User existingUser = existingAdultUser.getUser();
-		existingUser.setName(userDTO.getName());
-		existingUser.setPassword(userDTO.getPassword());
-		existingUser.setNickname(userDTO.getNickname());
+		// Adicione validações para campos nulos
+		if (updatedData.getUser() != null) {
+			
+			UserDTO userDTO = mapper.map(updatedData.getUser(), UserDTO.class);
+			userDTO.setId(existingAdultUser.getUser().getId());
+		
+			
+			UserDTO updatedUserDTO = userService.update(userDTO);
+			System.out.println(updatedUserDTO);
 
-		// Atualize as informações do AdultUser (email e job)
-		existingAdultUser.setEmail(adultUserDTO.getEmail());
-		existingAdultUser.setJob(adultUserDTO.getJob());
+			// Verifique se o User foi atualizado com sucesso
+			if (updatedUserDTO == null) {
+				throw new EntityNotFoundException("User not found with ID: " + existingAdultUser.getUser().getId());
+			}
 
-		// Salve as alterações no repositório
-		return adultUserRepository.save(existingAdultUser);
+			// Configure o User atualizado no objeto AdultUser
+			existingAdultUser.setUser(mapper.map(updatedUserDTO, User.class));
+
+			// Verifique o campo isActive e atualize-o se não for nulo
+			if (userDTO.getActive() != null) {
+				existingAdultUser.getUser().setActive(userDTO.getActive()	);
+			}
+		}
+
+		// Atualize o AdultUser no banco de dados
+		AdultUser updatedAdultUser = adultUserRepository.save(existingAdultUser);
+		return existingAdultUser;
 	}
+
 
 
 	public AdultUserDTO findById(Long id) throws Exception {
@@ -120,9 +178,29 @@ public class AdultUserService {
 			AdultUserDTO adultUserDTO = mapper.map(adultUserOptional.get(), AdultUserDTO.class);
 			return adultUserDTO;
 		} catch (Exception e) {
-			throw new Exception("Não ha registro de venda com esse id");
+			throw new Exception("Não há registro com esse id");
 		}
 
 	}
+
+
+	@Transactional
+	public ChildUser createChildUser(Long adultUserId, ChildUserDTO childUserDTO) {
+		// Verifique se o AdultUser existe no banco de dados
+		AdultUser adultUser = adultUserRepository.findById(adultUserId)
+				.orElseThrow(() -> new EntityNotFoundException("AdultUser not found with ID: " + adultUserId));
+
+		// Chame o serviço de criação de ChildUser, passando o ID do AdultUser
+		ChildUser createdChildUser = childUserService.createChildUser(adultUserId, childUserDTO);
+
+		return createdChildUser;
+	}
+
+	public void inactiveUser(Long id) {
+		 userService.updateInactive(id);
+		
+	}
+
+
 
 }
