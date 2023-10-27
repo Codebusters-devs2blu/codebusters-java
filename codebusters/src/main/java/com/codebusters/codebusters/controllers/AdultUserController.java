@@ -35,7 +35,7 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 
 	@Autowired
 	public AdultUserController(AdultUserService service, ModelMapper modelMapper) {
-		this.adultUserService = service;
+		this.service = service;
 		this.modelMapper = modelMapper;
 	}
 
