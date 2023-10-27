@@ -33,15 +33,20 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	}
 
 	@Override
+	public ResponseEntity<ChildTaskDTO> findById(Long aLong) {
+		return null;
+	}
+
+	/*@Override
 	@GetMapping("/findChildtask/{id}")
 	public ResponseEntity<ChildTaskDTO> findById(Long id) {
 		try {
 			//ChildTaskDTO childTask = childTaskService.getChildTaskById(id);
-			/*if (childTask != null) {
+			*//*if (childTask != null) {
 				return ResponseEntity.ok(childTask);
 			} else {
 				return ResponseEntity.notFound().build();
-			}*/
+			}*//*
 			return null;
 		} catch (Exception e) {
 			// Registre a exceção para fins de depuração
@@ -82,8 +87,8 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 		List<ChildTaskDTO> childTaskList = new ArrayList<>();
 		childTaskList.add(mock1);
 		childTaskList.add(mock2);
-		return childTaskList;
-	}
+		return childTaskList.get();
+	}*/
 
 
 	@Override
