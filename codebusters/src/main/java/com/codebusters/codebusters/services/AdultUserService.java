@@ -64,14 +64,25 @@ public class AdultUserService {
 	@Transactional
 	public AdultUser createAdultUser(AdultUserDTO adultUserDTO) {
 		// Crie um novo User usando o UserService
-		UserDTO userDTO = adultUserDTO.getUserDTO();
-		UserDTO createdUserDTO = userService.create(userDTO);
+		UserDTO userDTO = adultUserDTO.getUser();
 
+		System.out.println(adultUserDTO.getUser());
+
+		if (userDTO == null) {
+			throw new IllegalArgumentException("UserDTO não pode ser nulo");
+		}
+
+		UserDTO createdUserDTO = userService.create(userDTO);
 
 		// Crie uma nova Wallet usando o WalletService
 		WalletDTO walletDTO = new WalletDTO();
 		walletDTO.setMoney(0.0);
 		WalletDTO createdWalletDTO = walletService.create(walletDTO);
+
+		// Verifique se a conversão foi bem-sucedida
+		if (createdUserDTO == null || createdWalletDTO == null) {
+			throw new IllegalArgumentException("Falha na conversão de UserDTO ou WalletDTO");
+		}
 
 		// Crie o novo AdultUser com as informações necessárias, convertendo as DTOs em entidades
 		AdultUser newAdultUser = new AdultUser();
@@ -86,6 +97,7 @@ public class AdultUserService {
 	}
 
 
+
 	@Transactional
 	public AdultUser updateAdultUser(AdultUserDTO adultUserDTO) {
 		// Encontre o AdultUser existente no repositório
@@ -93,7 +105,7 @@ public class AdultUserService {
 				.orElseThrow(() -> new RuntimeException("AdultUser not found"));
 
 		// Atualize as informações do User (nome, senha e nickname)
-		UserDTO userDTO = adultUserDTO.getUserDTO();
+		UserDTO userDTO = adultUserDTO.getUser();
 		User existingUser = existingAdultUser.getUser();
 		existingUser.setName(userDTO.getName());
 		existingUser.setPassword(userDTO.getPassword());
@@ -111,7 +123,7 @@ public class AdultUserService {
 	public AdultUserDTO findById(Long id) throws Exception {
 		try {
 			Optional<AdultUser> adultUserOptional = adultUserRepository.findById(id);
-			AdultUserDTO adultUserDTO = mapper.map(adultUserOptional.get(), AdultUserDTO.class);
+			AdultUserDTO adultUserDTO = modelMapper.map(adultUserOptional.get(), AdultUserDTO.class);
 			return adultUserDTO;
 		} catch (Exception e) {
 			throw new Exception("Não ha registro de venda com esse id");

@@ -34,8 +34,6 @@ public class AdultUserDTO implements Serializable {
 
 	private Long id;
 
-	@NotBlank(message = "O objeto user não pode estar em branco")
-	@NotEmpty(message = "O objeto user não pode estar vazio")
 	private UserDTO user;
 
 	@NotBlank(message = "O campo email não pode estar em branco")
@@ -44,8 +42,6 @@ public class AdultUserDTO implements Serializable {
 
 	private String job;
 
-	@NotBlank(message = "O campo wallet não pode estar em branco")
-	@NotEmpty(message = "O campo wallet não pode estar vazio")
 	private WalletDTO wallet;
 
 	/*@NotBlank(message = "O campo cpf não pode estar em branco")
