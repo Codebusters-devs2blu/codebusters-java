@@ -1,44 +1,30 @@
 package com.codebusters.codebusters.controllers;
 
-import com.codebusters.codebusters.enums.Family;
 import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.AdultUserDTO;
-import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
-import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.dtos.ReleaseDTO;
-import com.codebusters.codebusters.models.dtos.UserDTO;
-import com.codebusters.codebusters.models.entities.AdultUser;
-import com.codebusters.codebusters.models.entities.ChildUser;
-import com.codebusters.codebusters.models.entities.User;
-
+import com.codebusters.codebusters.models.entities.Objective;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.*;
 
-import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.services.ObjectiveService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/objective")
 public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
-	@Autowired
+
 	private ObjectiveService service;
+	private final ModelMapper modelMapper;
 
-	private final ModelMapper mapper;
-
-	public ObjectiveController(ObjectiveService service, ModelMapper mapper) {
-		super();
+	public ObjectiveController(ObjectiveService service, ModelMapper modelMapper) {
 		this.service = service;
-		this.mapper = mapper;
+		this.modelMapper = modelMapper;
 	}
+
 
 	@Override
 	@GetMapping(value = "/listAll")
@@ -59,22 +45,30 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@RequestBody ObjectiveDTO dto) {
-		ObjectiveDTO createdAdultUser = service.create(dto);
-		return ResponseEntity.status(201).body(createdAdultUser);
+	public ResponseEntity<Object> create(ObjectiveDTO objectiveDTO) {
+
+		Objective createdObjective = service.createObjective(objectiveDTO);
+
+		ObjectiveDTO createdObjectiveDTO = modelMapper.map(createdObjective, ObjectiveDTO.class);
+
+		return ResponseEntity.status(201).body(createdObjectiveDTO);
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<ObjectiveDTO> update(@RequestBody ObjectiveDTO dto) {
-		ObjectiveDTO objectiveDTO = service.update(dto);
-		return ResponseEntity.ok(objectiveDTO);
+	public ResponseEntity<ObjectiveDTO> update(@Valid @RequestBody ObjectiveDTO dto) {
+		try{
+			Objective updatedObjective = service.updateObjective(dto);
+			ObjectiveDTO updatedObjectiveDTO = modelMapper.map(updatedObjective, ObjectiveDTO.class);
+			return ResponseEntity.ok(updatedObjectiveDTO);
+		}catch (Exception e) {
+			return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 	}
 
 	@Override
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-
 		try {
 			service.deleteById(id);
 			return ResponseEntity.ok("deletado");
@@ -82,7 +76,6 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 			return ResponseEntity.notFound().build();
 		}
-
 	}
 
 }

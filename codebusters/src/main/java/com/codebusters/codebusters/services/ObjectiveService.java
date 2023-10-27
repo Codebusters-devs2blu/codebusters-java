@@ -1,15 +1,13 @@
 package com.codebusters.codebusters.services;
 
-import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
+import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
-import com.codebusters.codebusters.models.entities.ChildTask;
+import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.Objective;
 import com.codebusters.codebusters.repositories.ObjectiveRepository;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,40 +39,50 @@ public class ObjectiveService {
 		}
 		return objectiveDTO;
 	}
+	public Objective createObjective(@Valid ObjectiveDTO objectiveDTO) {
+		Objective newObjective = new Objective();
+		newObjective.setObjectiveValue(objectiveDTO.getObjectiveValue());
+		newObjective.setCurrentAmount(objectiveDTO.getCurrentAmount());
+		newObjective.setDescription(objectiveDTO.getDescription());
 
-	public ObjectiveDTO create(@Valid ObjectiveDTO objectiveDTO) {
-		Objective objective = modelMapper.map(objectiveDTO, Objective.class);
-		
-		Objective createdObjective = objectiveRepository.save(objective);
-		
-		ObjectiveDTO createdObjectiveDTO = modelMapper.map(createdObjective, ObjectiveDTO.class);
-		return createdObjectiveDTO;
-	}
-
-	public ObjectiveDTO update(@Valid ObjectiveDTO objectiveDTO) {
-		Objective objective = modelMapper.map(objectiveDTO, Objective.class);
-		if (objectiveRepository.existsById(objective.getId())) {
-			Objective updatedObjective = objectiveRepository.save(objective);
-			ObjectiveDTO updatedObjectiveDTO = modelMapper.map(updatedObjective, ObjectiveDTO.class);
-			return updatedObjectiveDTO;
-		}  else {
-			return null;
+		ChildUserDTO childUserDTO = objectiveDTO.getChildUserDTO();
+		if (childUserDTO != null) {
+			ChildUser childUser = modelMapper.map(childUserDTO, ChildUser.class);
+			newObjective.setChildUser(childUser);
 		}
+
+		return objectiveRepository.save(newObjective);
 	}
 
-	public void deleteById(Long id) throws Exception {
+	public Objective updateObjective(@Valid ObjectiveDTO objectiveDTO) {
+		Objective existingObjective = objectiveRepository.findById(objectiveDTO.getId())
+				.orElseThrow(() -> new RuntimeException("Objective not found"));
+
+		existingObjective.setObjectiveValue(objectiveDTO.getObjectiveValue());
+		existingObjective.setDescription(objectiveDTO.getDescription());
+		existingObjective.setCurrentAmount(objectiveDTO.getCurrentAmount());
+
+		ChildUserDTO childUserDTO = objectiveDTO.getChildUserDTO();
+		if (childUserDTO != null) {
+			ChildUser childUser = modelMapper.map(childUserDTO, ChildUser.class);
+			existingObjective.setChildUser(childUser);
+		}
+
+		return objectiveRepository.save(existingObjective);
+	}
+
+	public boolean deleteById(Long id) {
 		try {
-			objectiveRepository.deleteById(id);
-		}catch (Exception e) {
-			throw new Exception("Não foi possivel deletar Objective com esse id");
-		}
-	}
-	public void deleteChildUser(Long id) throws Exception {
-		
-		
-		//	 objectiveRepository.deleteChildUser(id);
+			Optional<Objective> optionalObjective = objectiveRepository.findById(id);
 
-		
-		
+			if (optionalObjective.isPresent()) {
+				objectiveRepository.deleteById(id);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }
