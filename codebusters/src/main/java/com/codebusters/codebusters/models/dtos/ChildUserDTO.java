@@ -38,13 +38,6 @@ public class ChildUserDTO implements Serializable {
 	@NotEmpty(message = "O objeto wallet não pode estar vazio")
     private WalletDTO walletDTO;
 
-    @NotBlank(message = "A lista objectives não pode estar em branco")
-	@NotEmpty(message = "A lista objectives não pode estar vazio")
-    private List<ObjectiveDTO> objectives;
-
-    @NotBlank(message = "A lista tasks não pode estar em branco")
-	@NotEmpty(message = "A lista tasks não pode estar vazio")
-    private List<ChildTaskDTO> tasks;
     @NotBlank(message = "O objeto family não pode estar em branco")
 	@NotEmpty(message = "O objeto family não pode estar vazio")
     private Family family;
@@ -85,22 +78,6 @@ public class ChildUserDTO implements Serializable {
 		this.walletDTO = walletDTO;
 	}
 
-	public List<ObjectiveDTO> getObjectives() {
-		return objectives;
-	}
-
-	public void setObjectives(List<ObjectiveDTO> objectives) {
-		this.objectives = objectives;
-	}
-
-	public List<ChildTaskDTO> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(List<ChildTaskDTO> tasks) {
-		this.tasks = tasks;
-	}
-
 	public Family getFamily() {
 		return family;
 	}
@@ -116,4 +93,13 @@ public class ChildUserDTO implements Serializable {
 	public void setGuardian(AdultUserDTO guardian) {
 		this.guardian = guardian;
 	}
+
+	@Override
+	public String toString() {
+		return "ChildUserDTO [id=" + id + ", userDTO=" + userDTO + ", birthday=" + birthday + ", walletDTO=" + walletDTO
+				+ ", family=" + family + ", guardian=" + guardian + "]";
+	}
+
+	
+
 }

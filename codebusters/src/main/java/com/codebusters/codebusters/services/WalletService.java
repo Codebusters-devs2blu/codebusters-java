@@ -7,8 +7,6 @@ import com.codebusters.codebusters.repositories.WalletRepository;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,21 +37,19 @@ public class WalletService {
 		return walletDTO;
 	}
 
-	public ResponseEntity<WalletDTO> create(@Valid WalletDTO walletDTO) {
+	public WalletDTO create(@Valid WalletDTO walletDTO) {
 		Wallet wallet = modelMapper.map(walletDTO, Wallet.class);
 		Wallet createdWallet = walletRepository.save(wallet);
-		WalletDTO createdWalletDTO = modelMapper.map(createdWallet, WalletDTO.class);
-		return new ResponseEntity<>(createdWalletDTO, HttpStatus.CREATED);
+		return modelMapper.map(createdWallet, WalletDTO.class);
 	}
 
-	public ResponseEntity<WalletDTO> update(@Valid WalletDTO walletDTO) {
+	public WalletDTO update(@Valid WalletDTO walletDTO) {
 		Wallet wallet = modelMapper.map(walletDTO, Wallet.class);
 		if (walletRepository.existsById(wallet.getId())) {
 			Wallet updatedWallet = walletRepository.save(wallet);
-			WalletDTO updatedWalletDTO = modelMapper.map(updatedWallet, WalletDTO.class);
-			return new ResponseEntity<>(updatedWalletDTO, HttpStatus.OK);
+			return modelMapper.map(updatedWallet, WalletDTO.class);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return null; // Ou lançar uma exceção adequada, por exemplo, WalletNotFoundException
 		}
 	}
 

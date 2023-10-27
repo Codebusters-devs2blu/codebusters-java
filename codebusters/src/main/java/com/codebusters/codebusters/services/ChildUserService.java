@@ -6,6 +6,8 @@ import com.codebusters.codebusters.models.entities.ChildTask;
 import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.repositories.ChildTaskRepository;
 import com.codebusters.codebusters.repositories.ChildUserRepository;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.codebusters.codebusters.models.dtos.ChildUserDTO;
+import com.codebusters.codebusters.repositories.ChildUserRepository;
 
 @Service
 public class ChildUserService {
@@ -38,5 +43,6 @@ public class ChildUserService {
 			childUserDTO = mapper.map(optional.get(), ChildUserDTO.class);
 		}
 		return childUserDTO;
+
 	}
 }

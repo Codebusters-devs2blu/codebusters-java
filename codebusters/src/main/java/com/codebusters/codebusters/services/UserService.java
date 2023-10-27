@@ -6,8 +6,6 @@ import com.codebusters.codebusters.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,21 +35,19 @@ public class UserService {
 		return userDTO;
 	}
 
-	public ResponseEntity<UserDTO> create(@Valid UserDTO userDTO) {
+	public UserDTO create(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
 		User createdUser = userRepository.save(user);
-		UserDTO createdUserDTO = modelMapper.map(createdUser, UserDTO.class);
-		return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
+		return modelMapper.map(createdUser, UserDTO.class);
 	}
 
-	public ResponseEntity<UserDTO> update(@Valid UserDTO userDTO) {
+	public UserDTO update(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
 		if (userRepository.existsById(user.getId())) {
 			User updatedUser = userRepository.save(user);
-			UserDTO updatedUserDTO = modelMapper.map(updatedUser, UserDTO.class);
-			return new ResponseEntity<>(updatedUserDTO, HttpStatus.OK);
+			return modelMapper.map(updatedUser, UserDTO.class);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return null; // Ou lançar uma exceção adequada, por exemplo, UserNotFoundException
 		}
 	}
 

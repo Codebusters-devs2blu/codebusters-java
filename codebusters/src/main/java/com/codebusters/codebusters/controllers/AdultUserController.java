@@ -1,10 +1,19 @@
 package com.codebusters.codebusters.controllers;
 
+
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
+
+import com.codebusters.codebusters.models.entities.AdultUser;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.models.entities.AdultUser;
@@ -37,8 +46,17 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/api/adultuser")
 public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 
-	@Autowired
+
 	private AdultUserService service;
+
+	private final ModelMapper modelMapper;
+
+	@Autowired
+	public AdultUserController(AdultUserService service, ModelMapper modelMapper) {
+		this.adultUserService = service;
+		this.modelMapper = modelMapper;
+	}
+
 
 	@Override
 	public List<AdultUserDTO> listAll() {
@@ -57,8 +75,43 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		return ResponseEntity.ok(adultUserDTO);
 	}
 
+
 	@Override
 	@PostMapping(value = "/create")
+	public ResponseEntity<Object> create(@Valid @RequestBody AdultUserDTO adultUserDTO) {
+		AdultUser createdAdultUser = service.createAdultUser(adultUserDTO);
+
+		// Mapear o resultado para um AdultUserDTO
+		AdultUserDTO createdAdultUserDTO = modelMapper.map(createdAdultUser, AdultUserDTO.class);
+
+		return ResponseEntity.status(201).body(createdAdultUserDTO);
+	}
+
+
+/*	@PostMapping
+	public ResponseEntity<Object> create(@Valid AdultUserDTO dto) {
+		 try {
+			 //adultUserService.addAdultUsers(dto);
+	           
+	            return ResponseEntity.ok("");
+	        } catch (Exception e) {
+	            // Trate exceções e retorne uma resposta adequada em caso de erro
+	            return ResponseEntity.badRequest().body(e.getMessage());
+	        }
+		
+	}*/
+
+
+/*	@Override
+	@PutMapping(value= "/update")
+	public ResponseEntity<AdultUserDTO> update(@Valid AdultUserDTO dto) {
+		try {
+			//adultUserService.save(dto);
+		}catch (Exception e) {
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		return null;
+		
 	public ResponseEntity<Object> create(AdultUserDTO dto) {
 		return ResponseEntity.ok().body(createAdult());
 		
@@ -74,16 +127,15 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 	}
 
 	@Override
-	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<AdultUserDTO> update(AdultUserDTO dto) {
-		return ResponseEntity.ok().body(createAdult());
-		/*try {
-			// adultUserService.save(dto);
-			return ResponseEntity.ok(dto);
+	@PutMapping(value = "/update")
+	public ResponseEntity<AdultUserDTO> update(@Valid @RequestBody AdultUserDTO dto) {
+		try {
+			AdultUser updatedAdultUser = service.updateAdultUser(dto);
+			AdultUserDTO updatedDto = modelMapper.map(updatedAdultUser, AdultUserDTO.class);
+			return ResponseEntity.ok(updatedDto);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}*/
-
+		}
 	}
 
 	@Override
@@ -101,7 +153,12 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		}*/
 	}
 	public List<ChildUserDTO> createChild() {
-		UserDTO user = new UserDTO(1L, "Alice Pereira", "1234", "alice1234");
+		UserDTO user = new UserDTO();
+		user.setId(1L);
+		user.setName("Alice Pereira");
+		user.setNickname("1234");
+		user.setPassword( "alice1234");
+		
 		
 		ChildUserDTO childUser = new ChildUserDTO();
 		childUser.setId(40l);
@@ -110,10 +167,9 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		childUser.setFamily(Family.DAD);
 		childUser.setId(1L);
 		childUser.setWalletDTO(createWallet());
-		childUser.setTasks(createChildTask());
 		childUser.setUserDTO(user);
 		childUser.setWalletDTO(new WalletDTO());
-		childUser.setObjectives(createObjective());
+
 		
 		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
 		childUserDTOs.add(childUser);
@@ -128,9 +184,9 @@ public class AdultUserController implements CrudController<AdultUserDTO, Long> {
 		userFather.setNickname("PaulinhoGameplays");
 		userFather.setPassword("123456");
 		AdultUserDTO adultUserDTO = new AdultUserDTO();
-		adultUserDTO.setUserDTO(userFather);
-		adultUserDTO.setDependents(createChild());
-		adultUserDTO.setWallet(createWallet());
+		adultUserDTO.setUser(userFather);
+		//adultUserDTO.setDependents(createChild());
+		//adultUserDTO.setWallet(createWallet());
 		return adultUserDTO; 
 		
 	}
