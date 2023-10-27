@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class WalletDTO  implements Serializable{
     private static final Long serialVersionUID = 42L;
     private Long id;
@@ -17,6 +15,13 @@ public class WalletDTO  implements Serializable{
     @NotEmpty(message = "O campo money não pode estar vazio")*/
     private double money;
 
+    public WalletDTO() {
+    }
+
+    public WalletDTO(Long id, double money) {
+        this.id = id;
+        this.money = money;
+    }
 
     public Long getId() {
         return id;
@@ -34,9 +39,11 @@ public class WalletDTO  implements Serializable{
         this.money = money;
     }
 
-	@Override
-	public String toString() {
-		return "WalletDTO [id=" + id + ", money=" + money + "]";
-	}
-    
+    @Override
+    public String toString() {
+        return "WalletDTO{" +
+                "id=" + id +
+                ", money=" + money +
+                '}';
+    }
 }

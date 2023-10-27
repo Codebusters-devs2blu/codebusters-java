@@ -1,27 +1,28 @@
+-- Inserir o primeiro registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('Carlos Eduardo Pereira', 'carlosEduPereira', 'carlos123', true);
 
--- Inserir o primeiro registro
-INSERT INTO users (name, nickname, password)
-VALUES ('Carlos Eduardo Pereira', 'carlosEduPereira', 'carlos123');
+-- Inserir o segundo registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('Adriano Costa', 'adrianoCT', 'adriano123', true);
 
--- Inserir o segundo registro
-INSERT INTO users (name, nickname, password)
-VALUES ('Adriano Costa', 'adrianoCT', 'adriano123');
+-- Inserir o terceiro registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('Ana Carolina Santos', 'anaClSt', 'anaCS123', true);
 
--- Inserir o terceiro registro
-INSERT INTO users (name, nickname, password)
-VALUES ('Ana Carolina Santos', 'anaClSt', 'anaCS123');
+-- Inserir o quarto registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('Enzo Gabriel Dos Santos', 'enzoGabS', 'enzoGS123', true);
 
--- Inserir o quarto registro
-INSERT INTO users (name, nickname, password)
-VALUES ('Enzo Gabriel Dos Santos', 'enzoGabS', 'enzoGS123');
+-- Inserir o quinto registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('João Henrique Pereira', 'jaoHP', 'jaoHP123', true);
 
--- Inserir o quinto registro
-INSERT INTO users (name, nickname, password)
-VALUES ('João Henrique Pereira', 'jaoHP', 'jaoHP123');
+-- Inserir o sexto registro com isActive = true
+INSERT INTO users (name, nickname, password, IS_ACTIVE)
+VALUES ('Hery Bernado Costa', 'heryBDC', 'heryBC123', true);
 
--- Inserir o sexto registro
-INSERT INTO users (name, nickname, password)
-VALUES ('Hery Bernado Costa', 'heryBDC', 'heryBC123');
+
 
 
 
