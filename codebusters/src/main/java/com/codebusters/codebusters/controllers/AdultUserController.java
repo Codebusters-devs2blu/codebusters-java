@@ -32,15 +32,10 @@ public class AdultUserController /* implements CrudController<AdultUserDTO, Long
 	private final ModelMapper mapper;
 
 	@Autowired
-<<<<<<< HEAD
-	public AdultUserController(AdultUserService service, ModelMapper modelMapper) {
-		this.service = service;
-		this.modelMapper = modelMapper;
-=======
 	public AdultUserController(AdultUserService service, ModelMapper mapper) {
 		this.service = service;
 		this.mapper = mapper;
->>>>>>> 5d0e6c5773255b7e0e586f05c64257d211906896
+
 	}
 
 	@GetMapping(value = "/listall")
