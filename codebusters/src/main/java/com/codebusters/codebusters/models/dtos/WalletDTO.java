@@ -6,13 +6,17 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class WalletDTO  implements Serializable{
     private static final Long serialVersionUID = 42L;
+    @JsonProperty("id")
     private Long id;
 
 /*    @NotBlank(message = "O campo money não pode estar em branco")
     @NotEmpty(message = "O campo money não pode estar vazio")*/
+    @JsonProperty("money")
     private double money;
 
     public WalletDTO() {

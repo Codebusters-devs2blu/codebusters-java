@@ -1,8 +1,6 @@
 package com.codebusters.codebusters.controllers;
 
-
 import java.util.List;
-
 
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.entities.AdultUser;
@@ -27,11 +25,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/adultuser")
-public class AdultUserController /*implements CrudController<AdultUserDTO, Long>*/ {
-
-
+public class AdultUserController /* implements CrudController<AdultUserDTO, Long> */ {
+	@Autowired
 	private AdultUserService service;
-
+	@Autowired
 	private final ModelMapper mapper;
 
 	@Autowired
@@ -39,7 +36,6 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 		this.service = service;
 		this.mapper = mapper;
 	}
-
 
 	@GetMapping(value = "/listall")
 	public List<AdultUserDTO> listAll() {
@@ -58,7 +54,8 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 	}
 
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@Valid @RequestBody AdultUserDTO adultUserDTO) {
+	public ResponseEntity<Object> create(@RequestBody AdultUserDTO adultUserDTO) {
+		
 		AdultUser createdAdultUser = service.createAdultUser(adultUserDTO);
 
 		// Mapear o resultado para um AdultUserDTO
@@ -68,7 +65,9 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<AdultUserDTO> updateAdultUser(@PathVariable Long id, @Valid @RequestBody AdultUserDTO adultUserDTO) {
+	public ResponseEntity<AdultUserDTO> updateAdultUser(@PathVariable Long id,
+			@Valid @RequestBody AdultUserDTO adultUserDTO) {
+		System.out.println(adultUserDTO);
 		// Converta o AdultUserDTO para AdultUser
 		AdultUser adultUser = mapper.map(adultUserDTO, AdultUser.class);
 
@@ -86,15 +85,21 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 	}
 
 	@PostMapping("/{adultUserId}/childuser")
-	public ResponseEntity<ChildUser> createChildUser(
-			@PathVariable Long adultUserId,
-			@RequestBody ChildUserDTO childUserDTO
-	) {
+	public ResponseEntity<ChildUser> createChildUser(@PathVariable Long adultUserId,
+			@RequestBody ChildUserDTO childUserDTO) {
 		ChildUser createdChildUser = service.createChildUser(adultUserId, childUserDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdChildUser);
 	}
 
+	@PutMapping("/active/{id}")
+	public ResponseEntity<Object> statusUserInactive(@PathVariable Long id) {
+		try {
+			service.inactiveUser(id);
+			return ResponseEntity.ok("Inactive");
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 
-
+	}
 
 }

@@ -2,6 +2,7 @@ package com.codebusters.codebusters.controllers;
 
 import com.codebusters.codebusters.interfaces.CrudController;
 import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
+import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
 import com.codebusters.codebusters.models.entities.ChildTask;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,19 +49,28 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@RequestBody @Valid ChildTaskDTO dto) {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<Object> create(@RequestBody  ChildTaskDTO dto) {
+		ChildTaskDTO childTaskDTO =  service.create(dto);		
+		return ResponseEntity.status(201).body(childTaskDTO);
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ChildTaskDTO> update(@RequestBody @Valid ChildTaskDTO dto) {
-		return ResponseEntity.ok(dto);
+		ChildTaskDTO childTaskDTO = service.update(dto);
+		return ResponseEntity.ok(childTaskDTO);
 	}
 
 	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-		return ResponseEntity.noContent().build();
+		try {
+			service.deleteById(id);
+			return ResponseEntity.ok("deletado");
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+			
+		}
+		
 	}
 }

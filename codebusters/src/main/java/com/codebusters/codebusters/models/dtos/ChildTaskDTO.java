@@ -1,8 +1,13 @@
 package com.codebusters.codebusters.models.dtos;
 
 import com.codebusters.codebusters.enums.TaskStatus;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -10,23 +15,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChildTaskDTO {
-
+	@JsonProperty("id")
     private Long id;
-
+	@JsonProperty("description")
     @NotBlank(message = "O campo código não pode estar em branco")
     @NotEmpty(message = "O campo código não pode estar vazio")
     private String description;
-
-    @NotBlank(message = "O campo código não pode estar em branco")
-    @NotEmpty(message = "O campo código não pode estar vazio")
+	@JsonProperty("taskValue")
+	@NotNull
     private Double taskValue;
-
-    @NotBlank(message = "O campo código não pode estar em branco")
-    @NotEmpty(message = "O campo código não pode estar vazio")
+	@JsonProperty("status")
+	@NotNull
+	@Enumerated(EnumType.ORDINAL)
     private TaskStatus status;
-
+	@JsonProperty("adultUserDTO")
     private AdultUserDTO adultUserDTO;
-
+	@JsonProperty("childUserDTO")
     private ChildUserDTO childUserDTO;
 
 

@@ -1,8 +1,13 @@
 package com.codebusters.codebusters.models.dtos;
 
 import com.codebusters.codebusters.enums.ReleaseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -13,27 +18,23 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ReleaseDTO implements Serializable {
     private static final Long serialVersionUID = 42L;
-
+    @JsonProperty("id")
     private Long id;
-
-    @NotBlank(message = "O campo date não pode estar em branco")
-    @NotEmpty(message = "O campo date não pode estar vazio")
+    @JsonProperty("date")
+    @NotNull
     private Timestamp date;
-
-    @NotBlank(message = "O campo type não pode estar em branco")
-    @NotEmpty(message = "O campo type não pode estar vazio")
+    @JsonProperty("type")
+    @NotNull
+    @Enumerated(EnumType.ORDINAL)
     private ReleaseType type;
-
-    @NotBlank(message = "O campo value não pode estar em branco")
-    @NotEmpty(message = "O campo value não pode estar vazio")
+    @JsonProperty("releaseValue")
+    @NotNull
     private double releaseValue;
-
-    @NotBlank(message = "O campo description não pode estar em branco")
-    @NotEmpty(message = "O campo description não pode estar vazio")
+    @JsonProperty("description")
+    @NotNull
     private String description;
-
-    @NotBlank(message = "O campo walletDTO não pode estar em branco")
-    @NotEmpty(message = "O campo walletDTO não pode estar vazio")
+    @JsonProperty("walletDTO")
+    @NotNull
     private WalletDTO walletDTO;
 
     public Long getId() {

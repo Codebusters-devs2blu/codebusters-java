@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,8 +29,11 @@ import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
 import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
+import com.codebusters.codebusters.models.entities.AdultUser;
+import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.User;
 import com.codebusters.codebusters.models.entities.Wallet;
+import com.codebusters.codebusters.services.AdultUserService;
 import com.codebusters.codebusters.services.ChildUserService;
 
 import jakarta.validation.Valid;
@@ -40,6 +45,16 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 	@Autowired
 	private ChildUserService service;
 
+	@Autowired
+	private final ModelMapper mapper;
+
+	
+	public ChildUserController(ChildUserService service, ModelMapper mapper) {
+		super();
+		this.service = service;
+		this.mapper = mapper;
+	}
+
 	@Override
 	@GetMapping(value = "/listall")
 	public List<ChildUserDTO> listAll() {
@@ -48,7 +63,7 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ChildUserDTO> findById(Long id) {
+	public ResponseEntity<ChildUserDTO> findById(@PathVariable Long id) {
 		ChildUserDTO childUser = service.findById(id);
 
 		if (childUser == null) {
@@ -60,38 +75,52 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@Valid ChildUserDTO dto) {
-		return ResponseEntity.ok().body(setarObject());
-		/*
-		 * try { // childUserService.create(dto); // Retorne uma resposta adequada de
-		 * acordo com o sucesso da operação return ResponseEntity.ok("Cadastrado"); }
-		 * catch (Exception e) { // Trate exceções e retorne uma resposta adequada em
-		 * caso de erro return ResponseEntity.badRequest().body(e.getMessage()); }
-		 */
+	public ResponseEntity<Object> create(@RequestBody ChildUserDTO dto) {
 
+		ChildUser createChildUser = service.createChildUser(dto.getGuardian().getId(), dto);
+
+		// Mapear o resultado para um AdultUserDTO
+		ChildUserDTO childUserDTO = mapper.map(createChildUser, ChildUserDTO.class);
+
+		return ResponseEntity.status(201).body(childUserDTO);
+	
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ChildUserDTO> update(@Valid ChildUserDTO dto) {
-		return ResponseEntity.ok().body(setarObject());
-		/*
-		 * try { // childUserService.save(dto); return ResponseEntity.ok(dto); } catch
-		 * (Exception e) { return
-		 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); }
-		 */
+		/*ChildUserDTO childUserDTO = service.up(dto);
+		return ResponseEntity.ok(childUserDTO);/*/
+		return null;
+		
 	}
 
 	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(Long id) {
 		return ResponseEntity.ok().body(setarObject());
-		/*
-		 * // TODO Auto-generated method stub try { // childUserService.deleteById(id);
-		 * return ResponseEntity.ok("deletado"); } catch (Exception e) { // Trate
-		 * exceções e retorne uma resposta adequada em caso de erro return
-		 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); }
-		 */
+		
+	}
+	
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Object> update(@PathVariable Long id) {
+		try {
+			service.inactiveUser(id);
+			return ResponseEntity.ok("Inactive");
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+	@PutMapping("/active/{id}")
+	public ResponseEntity<Object> statusUserInactive(@PathVariable Long id) {
+		try {
+			service.inactiveUser(id);
+			return ResponseEntity.ok("Inactive");
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 	public ChildUserDTO setarObject() {

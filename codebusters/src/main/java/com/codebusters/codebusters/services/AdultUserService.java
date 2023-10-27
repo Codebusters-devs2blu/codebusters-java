@@ -56,7 +56,7 @@ public class AdultUserService {
 	public AdultUser createAdultUser(AdultUserDTO adultUserDTO) {
 		// Crie um novo User usando o UserService
 		UserDTO userDTO = adultUserDTO.getUser();
-
+		System.out.println(userDTO);
 		//userCria = userService.findById(userDTO.getId());
 
 		if (userDTO == null) {
@@ -132,7 +132,7 @@ public class AdultUserService {
 		Long adultUserId = updatedData.getId();
 		AdultUser existingAdultUser = adultUserRepository.findById(adultUserId)
 				.orElseThrow(() -> new EntityNotFoundException("AdultUser not found with ID: " + adultUserId));
-
+		
 		// Atualize apenas os campos que estão presentes no JSON e não são nulos
 		if (updatedData.getEmail() != null) {
 			existingAdultUser.setEmail(updatedData.getEmail());
@@ -143,8 +143,13 @@ public class AdultUserService {
 
 		// Adicione validações para campos nulos
 		if (updatedData.getUser() != null) {
+			
 			UserDTO userDTO = mapper.map(updatedData.getUser(), UserDTO.class);
+			userDTO.setId(existingAdultUser.getUser().getId());
+		
+			
 			UserDTO updatedUserDTO = userService.update(userDTO);
+			System.out.println(updatedUserDTO);
 
 			// Verifique se o User foi atualizado com sucesso
 			if (updatedUserDTO == null) {
@@ -162,8 +167,7 @@ public class AdultUserService {
 
 		// Atualize o AdultUser no banco de dados
 		AdultUser updatedAdultUser = adultUserRepository.save(existingAdultUser);
-
-		return updatedAdultUser;
+		return existingAdultUser;
 	}
 
 
@@ -190,6 +194,11 @@ public class AdultUserService {
 		ChildUser createdChildUser = childUserService.createChildUser(adultUserId, childUserDTO);
 
 		return createdChildUser;
+	}
+
+	public void inactiveUser(Long id) {
+		 userService.updateInactive(id);
+		
 	}
 
 

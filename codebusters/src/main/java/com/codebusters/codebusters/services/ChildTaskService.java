@@ -25,8 +25,7 @@ public class ChildTaskService {
 
 	public List<ChildTaskDTO> listAll() {
 		List<ChildTask> childTasks = childTaskRepository.findAll();
-		return childTasks.stream()
-				.map(childTask -> modelMapper.map(childTask, ChildTaskDTO.class))
+		return childTasks.stream().map(childTask -> modelMapper.map(childTask, ChildTaskDTO.class))
 				.collect(Collectors.toList());
 	}
 
@@ -41,21 +40,21 @@ public class ChildTaskService {
 		return childTask;
 	}
 
-	public ResponseEntity<ChildTaskDTO> create(@Valid ChildTaskDTO childTaskDTO) {
+	public ChildTaskDTO create(ChildTaskDTO childTaskDTO) {
 		ChildTask childTask = modelMapper.map(childTaskDTO, ChildTask.class);
 		ChildTask createdChildTask = childTaskRepository.save(childTask);
 		ChildTaskDTO createdChildTaskDTO = modelMapper.map(createdChildTask, ChildTaskDTO.class);
-		return new ResponseEntity<>(createdChildTaskDTO, HttpStatus.CREATED);
+		return createdChildTaskDTO;
 	}
 
-	public ResponseEntity<ChildTaskDTO> update(@Valid ChildTaskDTO childTaskDTO) {
+	public ChildTaskDTO update(@Valid ChildTaskDTO childTaskDTO) {
 		ChildTask childTask = modelMapper.map(childTaskDTO, ChildTask.class);
 		if (childTaskRepository.existsById(childTask.getId())) {
 			ChildTask updatedChildTask = childTaskRepository.save(childTask);
 			ChildTaskDTO updatedChildTaskDTO = modelMapper.map(updatedChildTask, ChildTaskDTO.class);
-			return new ResponseEntity<>(updatedChildTaskDTO, HttpStatus.OK);
+			return updatedChildTaskDTO;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return null;
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.codebusters.codebusters.enums.ReleaseType;
 import com.codebusters.codebusters.models.dtos.ChildUserDTO;
+import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
 import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +48,16 @@ public class WalletController implements CrudController<WalletDTO, Long> {
 	@Override
 	@PostMapping(value = "/create")
 	public ResponseEntity<Object> create(@Valid @RequestBody WalletDTO dto) {
-		return ResponseEntity.ok().build();
+		WalletDTO walletDTO =  service.create(dto);
+		return ResponseEntity.status(201).body(walletDTO);
+		 
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<WalletDTO> update(@Valid @RequestBody @PathVariable WalletDTO dto) {
-		return ResponseEntity.ok(dto);
+	public ResponseEntity<WalletDTO> update( @RequestBody  WalletDTO dto) {
+		WalletDTO walletDTO = service.update(dto);
+		return ResponseEntity.ok(walletDTO);
 	}
 
 	@Override

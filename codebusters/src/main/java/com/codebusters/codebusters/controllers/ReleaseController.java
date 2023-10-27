@@ -44,19 +44,29 @@ public class ReleaseController  implements CrudController<ReleaseDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(@Valid @RequestBody ReleaseDTO dto) {
-		return ResponseEntity.ok().build();
+	public ResponseEntity<Object> create(@RequestBody ReleaseDTO dto) {
+		
+		return ResponseEntity.ok(service.create(dto));
+		
 	}
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<ReleaseDTO> update(@Valid @RequestBody @PathVariable ReleaseDTO dto) {
-		return ResponseEntity.ok(dto);
+	public ResponseEntity<ReleaseDTO> update(@RequestBody ReleaseDTO dto) {
+		ReleaseDTO releaseDTO = service.update(dto);
+		
+		return ResponseEntity.ok(releaseDTO);
 	}
 
 	@Override
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-		return ResponseEntity.noContent().build();
+		try {
+			service.deleteById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

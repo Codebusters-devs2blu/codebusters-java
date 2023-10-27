@@ -1,6 +1,8 @@
 package com.codebusters.codebusters.services;
 
+import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
 import com.codebusters.codebusters.models.dtos.ObjectiveDTO;
+import com.codebusters.codebusters.models.entities.ChildTask;
 import com.codebusters.codebusters.models.entities.Objective;
 import com.codebusters.codebusters.repositories.ObjectiveRepository;
 import jakarta.validation.Valid;
@@ -40,25 +42,39 @@ public class ObjectiveService {
 		return objectiveDTO;
 	}
 
-	public ResponseEntity<ObjectiveDTO> create(@Valid ObjectiveDTO objectiveDTO) {
+	public ObjectiveDTO create(@Valid ObjectiveDTO objectiveDTO) {
 		Objective objective = modelMapper.map(objectiveDTO, Objective.class);
+		
 		Objective createdObjective = objectiveRepository.save(objective);
+		
 		ObjectiveDTO createdObjectiveDTO = modelMapper.map(createdObjective, ObjectiveDTO.class);
-		return new ResponseEntity<>(createdObjectiveDTO, HttpStatus.CREATED);
+		return createdObjectiveDTO;
 	}
 
-	public ResponseEntity<ObjectiveDTO> update(@Valid ObjectiveDTO objectiveDTO) {
+	public ObjectiveDTO update(@Valid ObjectiveDTO objectiveDTO) {
 		Objective objective = modelMapper.map(objectiveDTO, Objective.class);
 		if (objectiveRepository.existsById(objective.getId())) {
 			Objective updatedObjective = objectiveRepository.save(objective);
 			ObjectiveDTO updatedObjectiveDTO = modelMapper.map(updatedObjective, ObjectiveDTO.class);
-			return new ResponseEntity<>(updatedObjectiveDTO, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return updatedObjectiveDTO;
+		}  else {
+			return null;
 		}
 	}
 
-	public void deleteById(Long id) {
-		objectiveRepository.deleteById(id);
+	public void deleteById(Long id) throws Exception {
+		try {
+			objectiveRepository.deleteById(id);
+		}catch (Exception e) {
+			throw new Exception("Não foi possivel deletar Objective com esse id");
+		}
+	}
+	public void deleteChildUser(Long id) throws Exception {
+		
+		
+		//	 objectiveRepository.deleteChildUser(id);
+
+		
+		
 	}
 }

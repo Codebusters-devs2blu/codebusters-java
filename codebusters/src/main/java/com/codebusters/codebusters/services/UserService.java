@@ -74,4 +74,19 @@ public class UserService {
 	public void deleteById(Long id) {
 		userRepository.deleteById(id);
 	}
+
+
+
+	public void updateInactive(Long id) {
+		Optional<User> optional = userRepository.findById(id);
+		User user = null;
+
+		if (optional.isPresent()) {
+			user = modelMapper.map(optional.get(), User.class);
+		}
+		user.setActive(false);
+		System.out.println(user);
+		userRepository.save(user);
+		
+	}
 }
