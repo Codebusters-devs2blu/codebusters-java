@@ -8,6 +8,7 @@ import com.codebusters.codebusters.models.entities.ChildUser;
 import com.codebusters.codebusters.models.entities.User;
 import com.codebusters.codebusters.models.entities.Wallet;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -34,20 +35,34 @@ public class AdultUserDTO implements Serializable {
 
 	private Long id;
 
+	@JsonProperty("userDTO")
 	private UserDTO user;
 
-	@NotBlank(message = "O campo email não pode estar em branco")
-	@NotEmpty(message = "O campo email não pode estar vazio")
+	@JsonProperty("email")
+/*	@NotBlank(message = "O campo email não pode estar em branco")
+	@NotEmpty(message = "O campo email não pode estar vazio")*/
 	private String email;
 
+	@JsonProperty("job")
 	private String job;
 
+	@JsonProperty("walletDTO")
 	private WalletDTO wallet;
 
-	/*@NotBlank(message = "O campo cpf não pode estar em branco")
-	@NotEmpty(message = "O campo cpf não pode estar vazio")*/
+	@JsonProperty("cpf")
 	@Size(min = 11)
 	private String cpf;
+
+// ...
+
+	// Adicione um construtor anotado com @JsonCreator, se necessário
+	@JsonCreator
+	public AdultUserDTO( @JsonProperty("userDTO") UserDTO user, @JsonProperty("email") String email, @JsonProperty("job") String job, @JsonProperty("cpf") String cpf) {
+		this.user = user;
+		this.email = email;
+		this.job = job;
+		this.cpf = cpf;
+	}
 
 
 	

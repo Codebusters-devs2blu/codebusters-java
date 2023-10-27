@@ -13,17 +13,15 @@ public class Wallet {
 
     private double money = 0.0;
 
-    @OneToMany(mappedBy = "wallet")
-    private List<Release> releaseExtract;
 
     public Wallet() {
     }
 
-    public Wallet(Long id, double money, List<Release> releaseExtract) {
+    public Wallet(Long id, double money) {
         this.id = id;
         this.money = money;
-        this.releaseExtract = releaseExtract;
     }
+
 
     public Long getId() {
         return id;
@@ -41,18 +39,11 @@ public class Wallet {
         this.money = money;
     }
 
-    public List<Release> getReleaseExtract() {
-        return releaseExtract;
+    @Override
+    public String toString() {
+        return "Wallet{" +
+                "id=" + id +
+                ", money=" + money +
+                '}';
     }
-
-    public void setReleaseExtract(List<Release> releaseExtract) {
-        this.releaseExtract = releaseExtract;
-    }
-
-	@Override
-	public String toString() {
-		return "Wallet [id=" + id + ", money=" + money + ", releaseExtract=" + releaseExtract + "]";
-	}
-    
-   
 }

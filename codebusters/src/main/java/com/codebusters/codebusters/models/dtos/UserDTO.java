@@ -1,14 +1,15 @@
 package com.codebusters.codebusters.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
+/*@NoArgsConstructor
+@AllArgsConstructor*/
 public class UserDTO implements Serializable {
 
     private static final Long serialVersionUID = 42L;
@@ -27,6 +28,20 @@ public class UserDTO implements Serializable {
   /*  @NotBlank(message = "O campo Nickname não pode estar em branco")
     @NotEmpty(message = "O campo Nickname não pode estar vazio")*/
     private String nickname;
+
+    private Boolean isActive = true;
+
+
+    public UserDTO() {
+    }
+
+    public UserDTO(Long id, String name, String password, String nickname, Boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.nickname = nickname;
+        this.isActive = isActive;
+    }
 
     public Long getId() {
         return id;
@@ -60,9 +75,22 @@ public class UserDTO implements Serializable {
         this.nickname = nickname;
     }
 
-	@Override
-	public String toString() {
-		return "UserDTO [id=" + id + ", name=" + name + ", password=" + password + ", nickname=" + nickname + "]";
-	}
-    
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

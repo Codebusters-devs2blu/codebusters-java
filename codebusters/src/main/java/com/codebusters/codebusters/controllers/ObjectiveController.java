@@ -38,7 +38,7 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ObjectiveDTO> findById(Long id) {
+	public ResponseEntity<ObjectiveDTO> findById(@PathVariable Long id) {
 		ObjectiveDTO objective = service.findById(id);
 
 		if (objective == null) {
