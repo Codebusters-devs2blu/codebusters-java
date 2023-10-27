@@ -88,10 +88,10 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Override
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<ChildUserDTO> update(@Valid ChildUserDTO dto) {
-		/*ChildUserDTO childUserDTO = service.up(dto);
-		return ResponseEntity.ok(childUserDTO);/*/
-		return null;
+	public ResponseEntity<ChildUserDTO> update(@Valid @RequestBody ChildUserDTO dto) {
+		ChildUserDTO childUserDTO = service.update(dto);
+		return ResponseEntity.ok(childUserDTO);
+		
 		
 	}
 
@@ -102,8 +102,8 @@ public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 		
 	}
 	
-	@PutMapping("/update/{id}")
-	public ResponseEntity<Object> update(@PathVariable Long id) {
+	@PutMapping("/inactive/{id}")
+	public ResponseEntity<Object> updateInactive(@PathVariable Long id) {
 		try {
 			service.inactiveUser(id);
 			return ResponseEntity.ok("Inactive");

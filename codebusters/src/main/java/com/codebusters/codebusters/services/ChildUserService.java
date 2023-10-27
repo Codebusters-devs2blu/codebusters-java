@@ -9,6 +9,8 @@ import java.util.List;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.repositories.ChildUserRepository;
 
 @Service
@@ -41,8 +42,8 @@ public class ChildUserService {
 	ModelMapper mapper;
 
 	public List<ChildUserDTO> listAll() {
-        return childUserRepository.findAll().stream()
-				.map(childUser -> mapper.map(childUser, ChildUserDTO.class)).toList();
+		return childUserRepository.findAll().stream().map(childUser -> mapper.map(childUser, ChildUserDTO.class))
+				.toList();
 	}
 
 	public ChildUserDTO findById(Long id) {
@@ -83,7 +84,8 @@ public class ChildUserService {
 			throw new IllegalArgumentException("Falha na conversão de UserDTO ou WalletDTO");
 		}
 
-		// Crie o novo ChildUser com as informações necessárias, convertendo as DTOs em entidades
+		// Crie o novo ChildUser com as informações necessárias, convertendo as DTOs em
+		// entidades
 		ChildUser newChildUser = new ChildUser();
 		newChildUser.setUser(mapper.map(createdUserDTO, User.class));
 		newChildUser.setWallet(mapper.map(createdWalletDTO, Wallet.class));
@@ -94,11 +96,77 @@ public class ChildUserService {
 		// Salve o novo ChildUser no repositório
 		return childUserRepository.save(newChildUser);
 	}
+
 	public void inactiveUser(Long id) {
-		 userService.updateInactive(id);
-		
+		userService.updateInactive(id);
+
 	}
 
+	public ChildUserDTO update(ChildUserDTO dto) {
+	
+		Long childUserId = dto.getId();
+		ChildUser existingchildUser = childUserRepository.findById(childUserId)
+				.orElseThrow(() -> new EntityNotFoundException("AdultUser not found with ID: " + childUserId));
 
+		
+		
+		System.out.println(dto);
+		System.out.println(existingchildUser);
+		if (dto.getBirthday() != null) {
+			existingchildUser.setBirthday(dto.getBirthday());
+		}
+		if (dto.getFamily() != null) {
+			existingchildUser.setFamily(dto.getFamily());
+		}
+		if(dto.getWalletDTO()!=null) {
+			Wallet wallet = mapper.map(dto.getWalletDTO(), Wallet.class);
+			existingchildUser.setWallet(wallet);
+		}
+		if(dto.getGuardian()!=null) {
+			AdultUser adultUser = mapper.map(dto.getGuardian(), AdultUser.class);
+			existingchildUser.setGuardian(adultUser);
+		}
+		if(dto.getUserDTO()!=null) {
+			User user = mapper.map(dto.getUserDTO(), User.class);
+			existingchildUser.setUser(user);
+		}
+		
+	
+		
+		// Adicione validações para campos nulos
+		if (dto.getUserDTO() != null) {
+			
+			UserDTO userDTO = mapper.map(dto.getUserDTO(), UserDTO.class);
+			userDTO.setId(existingchildUser.getUser().getId());
+		
+			UserDTO updatedUserDTO = userService.update(userDTO);
+			
+			
+			User user = mapper.map(updatedUserDTO, User.class);
+			existingchildUser.setUser(user);
+			
+			
+			if (updatedUserDTO == null) {
+				throw new EntityNotFoundException("User not found with ID: " + dto.getUserDTO().getId());
+			}
+
+			// Verifique o campo isActive e atualize-o se não for nulo
+			if (userDTO.getActive() != null) {
+				dto.getUserDTO().setActive(userDTO.getActive());
+			}
+		
+			
+		}
+		
+		ChildUser updatedAdultUser = childUserRepository.save(existingchildUser);
+		ChildUserDTO childUserDTO =mapper.map(existingchildUser, ChildUserDTO.class);
+		WalletDTO wallet2 = mapper.map(existingchildUser.getWallet(), WalletDTO.class);
+		childUserDTO.setWalletDTO(wallet2);
+		
+		
+		
+		return childUserDTO ;
+
+	}
 
 }
