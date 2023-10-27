@@ -64,8 +64,8 @@ public class AdultUserController /* implements CrudController<AdultUserDTO, Long
 		return ResponseEntity.status(201).body(createdAdultUserDTO);
 	}
 
-	@PutMapping("/update/{id}")
-	public ResponseEntity<AdultUserDTO> updateAdultUser(@PathVariable Long id,
+	@PutMapping("/update")
+	public ResponseEntity<AdultUserDTO> updateAdultUser(
 			@Valid @RequestBody AdultUserDTO adultUserDTO) {
 		System.out.println(adultUserDTO);
 		// Converta o AdultUserDTO para AdultUser
