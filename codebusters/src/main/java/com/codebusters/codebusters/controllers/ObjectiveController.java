@@ -27,67 +27,24 @@ import java.util.List;
 @RequestMapping(value = "/api/objective")
 public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 	@Autowired
-	private ObjectiveService objectiveService;
+	private ObjectiveService service;
 
 
 	@Override
 	@GetMapping(value = "/listAll")
 	public List<ObjectiveDTO> listAll() {
-		return objectiveService.listAll();
-		/*
-		UserDTO user01 = new UserDTO();
-		user01.setId(40l);
-		user01.setName("Paulo");
-		user01.setNickname("PaulinhoGameplays");
-		user01.setPassword("123456");
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO meta01 = new ObjectiveDTO();
-		meta01.setId(01l);
-		meta01.setObjectiveValue(3000);
-		meta01.setCurrentAmount(250);
-		meta01.setChildUserDTO(childUserDTO01);
-		meta01.setDescription("Apple Watch dos Cria");
-
-		ObjectiveDTO meta02 = new ObjectiveDTO();
-		meta02.setId(02l);
-		meta02.setObjectiveValue(10000);
-		meta02.setCurrentAmount(3.50);
-		meta02.setChildUserDTO(childUserDTO01);
-		meta02.setDescription("Chevette Tubarão Aspirado");
-
-		List<ObjectiveDTO> listDeMetas = new ArrayList<>();
-		listDeMetas.add(meta01);
-		listDeMetas.add(meta02);
-
-		return listDeMetas;*/
+		return service.listAll();
 	}
 
 	@Override
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ObjectiveDTO> findById(Long aLong) {
+	public ResponseEntity<ObjectiveDTO> findById(Long id) {
+		ObjectiveDTO objective = service.findById(id);
 
-		UserDTO user01 = new UserDTO();
-		user01.setId(40l);
-		user01.setName("Paulo");
-		user01.setNickname("PaulinhoGameplays");
-		user01.setPassword("123456");
-
-		ChildUserDTO childUserDTO01 = new ChildUserDTO();
-		childUserDTO01.setId(40l);
-		childUserDTO01.setFamily(Family.DAD);
-
-		ObjectiveDTO meta01 = new ObjectiveDTO();
-		meta01.setId(01l);
-		meta01.setObjectiveValue(3000);
-		meta01.setCurrentAmount(250);
-		meta01.setChildUserDTO(childUserDTO01);
-		meta01.setDescription("Apple Watch dos Cria");
-
-		return ResponseEntity.ok(meta01);
+		if (objective == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(objective);
 	}
 
 	@Override

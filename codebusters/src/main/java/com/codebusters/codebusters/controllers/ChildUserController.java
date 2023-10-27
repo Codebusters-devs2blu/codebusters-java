@@ -38,38 +38,24 @@ import jakarta.validation.Valid;
 public class ChildUserController implements CrudController<ChildUserDTO, Long> {
 
 	@Autowired
-	private ChildUserService childUserService;
+	private ChildUserService service;
 
 	@Override
-	public List<ChildUserDTO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@GetMapping(value = "/listall")
-	public List<ChildUserDTO> listAllChild() {
-		return childUserService.listAll();
-		 /*
-		List<ChildUserDTO> childUserDTOs = new ArrayList<>();
-		ChildUserDTO childUserDTO = setarObject();
-		childUserDTOs.add(childUserDTO);
-		return childUserDTOs;*/
-
+	public List<ChildUserDTO> listAll() {
+		return service.listAll();
 	}
 
 	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildUserDTO> findById(Long id) {
-		return ResponseEntity.ok(setarObject());
-		/*ChildUserDTO childUserDTO = childUserService.findById(id);
+		ChildUserDTO childUser = service.findById(id);
 
-		if (childUserDTO == null) {
+		if (childUser == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(adultUserDTO);
 
-		*/
-
+		return ResponseEntity.ok(childUser);
 	}
 
 	@Override
