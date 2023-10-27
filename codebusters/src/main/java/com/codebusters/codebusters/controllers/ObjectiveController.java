@@ -101,6 +101,7 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 
+
 		UserDTO user01 = new UserDTO();
 		user01.setId(40l);
 		user01.setName("Paulo");
