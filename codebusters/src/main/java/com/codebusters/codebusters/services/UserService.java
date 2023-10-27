@@ -3,6 +3,7 @@ package com.codebusters.codebusters.services;
 import com.codebusters.codebusters.models.dtos.UserDTO;
 import com.codebusters.codebusters.models.entities.User;
 import com.codebusters.codebusters.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,30 @@ public class UserService {
 		return userDTO;
 	}
 
-	public UserDTO create(@Valid UserDTO userDTO) {
+/*	public UserDTO create(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);
 		User createdUser = userRepository.save(user);
 		return modelMapper.map(createdUser, UserDTO.class);
+	}*/
+
+	@Transactional
+	public UserDTO create(@Valid UserDTO userDTO) {
+		// Converta o UserDTO em uma entidade User usando o ModelMapper
+		User user = modelMapper.map(userDTO, User.class);
+
+		if (user == null) {
+			throw new IllegalArgumentException("Falha na conversão do UserDTO para User");
+		}
+
+		// Persista o usuário no banco de dados
+		User createdUser = userRepository.save(user);
+
+		// Converta o User criado de volta para um UserDTO
+		UserDTO createdUserDTO = modelMapper.map(createdUser, UserDTO.class);
+
+		return createdUserDTO;
 	}
+
 
 	public UserDTO update(@Valid UserDTO userDTO) {
 		User user = modelMapper.map(userDTO, User.class);

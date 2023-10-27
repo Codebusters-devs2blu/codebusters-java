@@ -34,7 +34,6 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 		return service.listAll();
 	}
 
-	@Override
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ChildTaskDTO> findById(@PathVariable Long id) {
 		ChildTaskDTO childTask = service.findById(id);
