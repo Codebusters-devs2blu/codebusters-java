@@ -67,6 +67,13 @@ public class AdultUserDTO implements Serializable {
 
 	
 	
+	public AdultUserDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "AdultUserDTO [id=" + id + ", user=" + user + ", email=" + email + ", job=" + job + ", wallet=" + wallet

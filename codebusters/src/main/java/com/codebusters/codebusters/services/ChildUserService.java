@@ -94,6 +94,10 @@ public class ChildUserService {
 		// Salve o novo ChildUser no repositório
 		return childUserRepository.save(newChildUser);
 	}
+	public void inactiveUser(Long id) {
+		 userService.updateInactive(id);
+		
+	}
 
 
 

@@ -4,6 +4,8 @@ import com.codebusters.codebusters.models.dtos.ReleaseDTO;
 import com.codebusters.codebusters.models.entities.Release;
 import com.codebusters.codebusters.repositories.ReleaseRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +25,7 @@ public class ReleaseService {
 	private ModelMapper modelMapper;
 
 	public List<ReleaseDTO> listAll() {
-		return releaseRepository.findAll().stream()
-				.map(release -> modelMapper.map(release, ReleaseDTO.class)).toList();
+		return releaseRepository.findAll().stream().map(release -> modelMapper.map(release, ReleaseDTO.class)).toList();
 	}
 
 	public ReleaseDTO findById(Long id) {
@@ -37,28 +38,32 @@ public class ReleaseService {
 		return releaseDTO;
 	}
 
-	public ResponseEntity<ReleaseDTO> create(@Valid ReleaseDTO releaseDTO) {
+	public ReleaseDTO create(ReleaseDTO releaseDTO) {
 		Release release = modelMapper.map(releaseDTO, Release.class);
 		Release createdRelease = releaseRepository.save(release);
+		System.out.println(createdRelease);
 		ReleaseDTO createdReleaseDTO = modelMapper.map(createdRelease, ReleaseDTO.class);
-		return new ResponseEntity<>(createdReleaseDTO, HttpStatus.CREATED);
+		return createdReleaseDTO;
 	}
 
-	public ResponseEntity<ReleaseDTO> update(@Valid ReleaseDTO releaseDTO) {
+	public ReleaseDTO update(ReleaseDTO releaseDTO) {
 		Release release = modelMapper.map(releaseDTO, Release.class);
 		if (releaseRepository.existsById(release.getId())) {
 			Release updatedRelease = releaseRepository.save(release);
 			ReleaseDTO updatedReleaseDTO = modelMapper.map(updatedRelease, ReleaseDTO.class);
-			return new ResponseEntity<>(updatedReleaseDTO, HttpStatus.OK);
+			return updatedReleaseDTO;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return null;
 		}
 	}
 
-	public void deleteById(Long id) {
-		releaseRepository.deleteById(id);
+	public void deleteById(Long id) throws Exception {
+
+		try {
+			releaseRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new Exception("Não foi possivel deletar a Release com esse id");
+		}
 	}
-
-
 
 }
