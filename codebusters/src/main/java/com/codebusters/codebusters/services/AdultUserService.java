@@ -10,17 +10,15 @@ import com.codebusters.codebusters.repositories.AdultUserRepository;
 import com.codebusters.codebusters.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
-
-import com.codebusters.codebusters.repositories.AdultUserRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codebusters.codebusters.models.dtos.AdultUserDTO;
 
-import com.codebusters.codebusters.models.entities.AdultUser;
+import com.codebusters.codebusters.models.dtos.AdultUserDTO;
 
 @Service
 public class AdultUserService {
@@ -31,16 +29,31 @@ public class AdultUserService {
 	private final UserService userService;
 	private final UserRepository userRepository;
 	private final WalletService walletService;
-	private final ModelMapper modelMapper;
+	private final ModelMapper mapper;
 
 	@Autowired
-	public AdultUserService(AdultUserRepository adultUserRepository, UserService userService, UserRepository userRepository, WalletService walletService, ModelMapper modelMapper) {
+	public AdultUserService(AdultUserRepository adultUserRepository, UserService userService, UserRepository userRepository, WalletService walletService, ModelMapper mapper) {
 		this.adultUserRepository = adultUserRepository;
 		this.userService = userService;
 		this.userRepository = userRepository;
 		this.walletService = walletService;
-		this.modelMapper = modelMapper;
+		this.mapper = mapper;
 	}
+
+	public List<AdultUserDTO> listAll() {
+		return adultUserRepository.findAll().stream()
+				.map(adultUser -> mapper.map(adultUser, AdultUserDTO.class)).toList();
+	}
+/*	public AdultUserDTO findById(Long id) {
+		Optional<AdultUser> optional = adultUserRepository.findById(id);
+		AdultUserDTO adultUserDTO = null;
+
+		if (optional.isPresent()) {
+			adultUserDTO = mapper.map(optional.get(), AdultUserDTO.class);
+		}
+		return adultUserDTO;
+	}*/
+
 
 	@Transactional
 	public AdultUser createAdultUser(AdultUserDTO adultUserDTO) {
@@ -67,8 +80,8 @@ public class AdultUserService {
 
 		// Crie o novo AdultUser com as informações necessárias, convertendo as DTOs em entidades
 		AdultUser newAdultUser = new AdultUser();
-		newAdultUser.setUser(modelMapper.map(createdUserDTO, User.class));
-		newAdultUser.setWallet(modelMapper.map(createdWalletDTO, Wallet.class));
+		newAdultUser.setUser(mapper.map(createdUserDTO, User.class));
+		newAdultUser.setWallet(mapper.map(createdWalletDTO, Wallet.class));
 		newAdultUser.setEmail(adultUserDTO.getEmail());
 		newAdultUser.setJob(adultUserDTO.getJob());
 		newAdultUser.setCpf(adultUserDTO.getCpf());
@@ -104,7 +117,7 @@ public class AdultUserService {
 	public AdultUserDTO findById(Long id) throws Exception {
 		try {
 			Optional<AdultUser> adultUserOptional = adultUserRepository.findById(id);
-			AdultUserDTO adultUserDTO = modelMapper.map(adultUserOptional.get(), AdultUserDTO.class);
+			AdultUserDTO adultUserDTO = mapper.map(adultUserOptional.get(), AdultUserDTO.class);
 			return adultUserDTO;
 		} catch (Exception e) {
 			throw new Exception("Não ha registro de venda com esse id");

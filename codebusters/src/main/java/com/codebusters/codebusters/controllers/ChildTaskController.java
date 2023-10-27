@@ -1,38 +1,41 @@
 package com.codebusters.codebusters.controllers;
 
-import com.codebusters.codebusters.enums.TaskStatus;
 import com.codebusters.codebusters.interfaces.CrudController;
-import com.codebusters.codebusters.models.dtos.AdultUserDTO;
 import com.codebusters.codebusters.models.dtos.ChildTaskDTO;
-
-import com.codebusters.codebusters.models.dtos.ChildUserDTO;
-import com.codebusters.codebusters.models.dtos.ReleaseDTO;
+import com.codebusters.codebusters.models.entities.ChildTask;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.codebusters.codebusters.services.ChildTaskService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/childtask")
 public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 	@Autowired
-	private ChildTaskService childTaskService;
+	private ChildTaskService service;
 
 	@Override
 	@GetMapping(value = "/listall")
 	public List<ChildTaskDTO> listAll() {
-		List<ChildTaskDTO> childTasks = null/*childTaskService.getAllChildTasks()*/;
-		return childTasks;
+		return service.listAll();
 	}
 
 	@Override
+<<<<<<< HEAD
 	public ResponseEntity<ChildTaskDTO> findById(Long aLong) {
 		return null;
 	}
@@ -89,7 +92,16 @@ public class ChildTaskController implements CrudController<ChildTaskDTO, Long> {
 		childTaskList.add(mock2);
 		return childTaskList.get();
 	}*/
-
+=======
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<ChildTaskDTO> findById(@PathVariable Long id) {
+		ChildTaskDTO childTask = service.findById(id);
+		if (childTask == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(childTask);
+	}
+>>>>>>> befa0c7d8147fd07ca6ebba72a4a758aa012dd06
 
 	@Override
 	@PostMapping(value = "/create")

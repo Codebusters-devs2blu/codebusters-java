@@ -1,5 +1,6 @@
 package com.codebusters.codebusters.services;
 
+import com.codebusters.codebusters.models.dtos.ChildUserDTO;
 import com.codebusters.codebusters.models.dtos.WalletDTO;
 import com.codebusters.codebusters.models.entities.Wallet;
 import com.codebusters.codebusters.repositories.WalletRepository;
@@ -22,15 +23,18 @@ public class WalletService {
 	private ModelMapper modelMapper;
 
 	public List<WalletDTO> listAll() {
-		List<Wallet> wallets = walletRepository.findAll();
-		return wallets.stream()
-				.map(wallet -> modelMapper.map(wallet, WalletDTO.class))
-				.collect(Collectors.toList());
+		return walletRepository.findAll().stream()
+				.map(wallet -> modelMapper.map(wallet, WalletDTO.class)).toList();
 	}
 
 	public WalletDTO findById(Long id) {
-		Optional<Wallet> walletOptional = walletRepository.findById(id);
-		return walletOptional.map(wallet -> modelMapper.map(wallet, WalletDTO.class)).orElse(null);
+		Optional<Wallet> optional = walletRepository.findById(id);
+		WalletDTO walletDTO = null;
+
+		if (optional.isPresent()) {
+			walletDTO = modelMapper.map(optional.get(), WalletDTO.class);
+		}
+		return walletDTO;
 	}
 
 	public WalletDTO create(@Valid WalletDTO walletDTO) {

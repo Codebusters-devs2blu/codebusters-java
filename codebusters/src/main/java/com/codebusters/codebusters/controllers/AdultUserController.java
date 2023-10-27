@@ -28,37 +28,36 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/api/adultuser")
 public class AdultUserController /*implements CrudController<AdultUserDTO, Long>*/ {
 
-	private AdultUserService adultUserService;
+
+	private AdultUserService service;
+
 	private final ModelMapper modelMapper;
 
 	@Autowired
-	public AdultUserController(AdultUserService adultUserService, ModelMapper modelMapper) {
-		this.adultUserService = adultUserService;
+	public AdultUserController(AdultUserService service, ModelMapper modelMapper) {
+		this.adultUserService = service;
 		this.modelMapper = modelMapper;
 	}
 
 
 	public List<AdultUserDTO> listAll() {
-
-		return null;
+		return service.listAll();
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {	
-		AdultUserDTO adultUserDTO;
-		try {
-			adultUserDTO = adultUserService.findById(id);
-			return ResponseEntity.ok(adultUserDTO);
-		} catch (Exception e) {
+	public ResponseEntity<AdultUserDTO> findById(@PathVariable Long id) {
+		AdultUserDTO adultUserDTO = service.findById(id);
+
+		if (adultUserDTO == null) {
 			return ResponseEntity.notFound().build();
-			
 		}
-		
+
+		return ResponseEntity.ok(adultUserDTO);
 	}
 
 	@PostMapping(value = "/create")
 	public ResponseEntity<Object> create(@Valid @RequestBody AdultUserDTO adultUserDTO) {
-		AdultUser createdAdultUser = adultUserService.createAdultUser(adultUserDTO);
+		AdultUser createdAdultUser = service.createAdultUser(adultUserDTO);
 
 		// Mapear o resultado para um AdultUserDTO
 		AdultUserDTO createdAdultUserDTO = modelMapper.map(createdAdultUser, AdultUserDTO.class);
@@ -109,7 +108,7 @@ public class AdultUserController /*implements CrudController<AdultUserDTO, Long>
 	@PutMapping(value = "/update")
 	public ResponseEntity<AdultUserDTO> update(@Valid @RequestBody AdultUserDTO dto) {
 		try {
-			AdultUser updatedAdultUser = adultUserService.updateAdultUser(dto);
+			AdultUser updatedAdultUser = service.updateAdultUser(dto);
 			AdultUserDTO updatedDto = modelMapper.map(updatedAdultUser, AdultUserDTO.class);
 			return ResponseEntity.ok(updatedDto);
 		} catch (Exception e) {
