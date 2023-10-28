@@ -45,7 +45,7 @@ public class ObjectiveController implements CrudController<ObjectiveDTO, Long> {
 
 	@Override
 	@PostMapping(value = "/create")
-	public ResponseEntity<Object> create(ObjectiveDTO objectiveDTO) {
+	public ResponseEntity<Object> create(@RequestBody ObjectiveDTO objectiveDTO) {
 
 		Objective createdObjective = service.createObjective(objectiveDTO);
 

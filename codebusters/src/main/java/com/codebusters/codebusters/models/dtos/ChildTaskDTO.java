@@ -33,8 +33,13 @@ public class ChildTaskDTO {
 	@JsonProperty("childUserDTO")
     private ChildUserDTO childUserDTO;
 
+	
 
-    public Long getId() {
+    public ChildTaskDTO() {
+		super();
+	}
+
+	public Long getId() {
         return id;
     }
 

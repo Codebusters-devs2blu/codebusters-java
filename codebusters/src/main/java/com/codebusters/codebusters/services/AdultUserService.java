@@ -35,16 +35,22 @@ public class AdultUserService {
 	private final UserService userService;
 	private final UserRepository userRepository;
 	private final WalletService walletService;
+	@Autowired
 	private final ModelMapper mapper;
 
-	@Autowired
-	public AdultUserService(AdultUserRepository adultUserRepository, UserService userService, UserRepository userRepository, WalletService walletService, ModelMapper mapper) {
+	
+
+	public AdultUserService(AdultUserRepository adultUserRepository, ChildUserService childUserService,
+			UserService userService, UserRepository userRepository, WalletService walletService, ModelMapper mapper) {
+		super();
 		this.adultUserRepository = adultUserRepository;
+		this.childUserService = childUserService;
 		this.userService = userService;
 		this.userRepository = userRepository;
 		this.walletService = walletService;
 		this.mapper = mapper;
 	}
+
 
 	public List<AdultUserDTO> listAll() {
 		return adultUserRepository.findAll().stream()

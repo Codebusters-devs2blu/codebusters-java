@@ -12,7 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChildUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +38,11 @@ public class ChildUserDTO implements Serializable {
 	@JsonProperty("guardian")
 	@NotNull
 	private AdultUserDTO guardian;
+	
+	
+	public ChildUserDTO() {
+		super();
+	}
 
 	public Long getId() {
 		return id;

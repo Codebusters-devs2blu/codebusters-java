@@ -9,6 +9,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class WalletDTO  implements Serializable{
     private static final Long serialVersionUID = 42L;
     @JsonProperty("id")

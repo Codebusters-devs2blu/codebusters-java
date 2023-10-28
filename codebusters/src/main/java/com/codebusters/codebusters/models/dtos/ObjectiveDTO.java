@@ -7,7 +7,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
 public class ObjectiveDTO {
     private Long id;
 
@@ -24,6 +27,10 @@ public class ObjectiveDTO {
     private ChildUserDTO childUserDTO;
 
    
+	public ObjectiveDTO() {
+		super();
+	}
+
 	public Long getId() {
         return id;
     }

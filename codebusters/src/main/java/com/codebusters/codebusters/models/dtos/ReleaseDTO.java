@@ -36,8 +36,14 @@ public class ReleaseDTO implements Serializable {
     @JsonProperty("walletDTO")
     @NotNull
     private WalletDTO walletDTO;
+    
+    
+    public ReleaseDTO() {
+		super();
+	}
 
-    public Long getId() {
+
+	public Long getId() {
         return id;
     }
 

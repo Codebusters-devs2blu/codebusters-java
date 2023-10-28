@@ -36,19 +36,27 @@ public class AdultUserDTO implements Serializable {
 // ...
 
 	// Adicione um construtor anotado com @JsonCreator, se necessário
-	@JsonCreator
-	public AdultUserDTO( @JsonProperty("userDTO") UserDTO user, @JsonProperty("email") String email, @JsonProperty("job") String job, @JsonProperty("cpf") String cpf) {
-		this.user = user;
-		this.email = email;
-		this.job = job;
-		this.cpf = cpf;
-	}
+	
 
 
 	@Override
 	public String toString() {
 		return "AdultUserDTO [id=" + id + ", user=" + user + ", email=" + email + ", job=" + job + ", wallet=" + wallet
 				+ ", cpf=" + cpf + "]";
+	}
+
+	public AdultUserDTO() {
+		super();
+	}
+
+	public AdultUserDTO(Long id, UserDTO user, String email, String job, WalletDTO wallet, @Size(min = 11) String cpf) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.email = email;
+		this.job = job;
+		this.wallet = wallet;
+		this.cpf = cpf;
 	}
 
 	public Long getId() {
