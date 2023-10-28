@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
 public class ChildTaskDTO {
 	@JsonProperty("id")
     private Long id;
@@ -36,8 +34,23 @@ public class ChildTaskDTO {
 	
 
     public ChildTaskDTO() {
-		super();
+
 	}
+    
+
+	public ChildTaskDTO(Long id,
+			@NotBlank(message = "O campo código não pode estar em branco") @NotEmpty(message = "O campo código não pode estar vazio") String description,
+			@NotNull Double taskValue, @NotNull TaskStatus status, AdultUserDTO adultUserDTO,
+			ChildUserDTO childUserDTO) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.taskValue = taskValue;
+		this.status = status;
+		this.adultUserDTO = adultUserDTO;
+		this.childUserDTO = childUserDTO;
+	}
+
 
 	public Long getId() {
         return id;

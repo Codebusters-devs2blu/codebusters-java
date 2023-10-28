@@ -14,8 +14,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ChildUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,6 +42,19 @@ public class ChildUserDTO implements Serializable {
 	public ChildUserDTO() {
 		super();
 	}
+	
+
+	public ChildUserDTO(Long id, @NotNull UserDTO userDTO, @NotNull Date birthday, @NotNull WalletDTO walletDTO,
+			@NotNull Family family, @NotNull AdultUserDTO guardian) {
+		super();
+		this.id = id;
+		this.userDTO = userDTO;
+		this.birthday = birthday;
+		this.walletDTO = walletDTO;
+		this.family = family;
+		this.guardian = guardian;
+	}
+
 
 	public Long getId() {
 		return id;

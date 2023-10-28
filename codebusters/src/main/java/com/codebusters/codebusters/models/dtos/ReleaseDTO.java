@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ReleaseDTO implements Serializable {
     private static final Long serialVersionUID = 42L;
     @JsonProperty("id")
@@ -40,6 +39,18 @@ public class ReleaseDTO implements Serializable {
     
     public ReleaseDTO() {
 		super();
+	}
+    
+
+	public ReleaseDTO(Long id, @NotNull Timestamp date, @NotNull ReleaseType type, @NotNull double releaseValue,
+			@NotNull String description, @NotNull WalletDTO walletDTO) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.type = type;
+		this.releaseValue = releaseValue;
+		this.description = description;
+		this.walletDTO = walletDTO;
 	}
 
 

@@ -8,8 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class AdultUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;

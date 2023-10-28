@@ -9,8 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ObjectiveDTO {
     private Long id;
 
@@ -30,6 +29,18 @@ public class ObjectiveDTO {
 	public ObjectiveDTO() {
 		super();
 	}
+	
+
+	public ObjectiveDTO(Long id, double objectiveValue, double currentAmount, String description,
+			ChildUserDTO childUserDTO) {
+		super();
+		this.id = id;
+		this.objectiveValue = objectiveValue;
+		this.currentAmount = currentAmount;
+		this.description = description;
+		this.childUserDTO = childUserDTO;
+	}
+
 
 	public Long getId() {
         return id;
