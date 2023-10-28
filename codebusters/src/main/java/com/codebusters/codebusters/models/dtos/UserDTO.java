@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserDTO implements Serializable {
 
     private static final Long serialVersionUID = 42L;

@@ -48257,6 +48257,7 @@
        add constraint FKsts4i7fe65ys3bu0ilfsk05f9 
        foreign key (wallet_id) 
        references wallet;
+<<<<<<< HEAD
 
     create table adult_user (
         id bigserial not null,
@@ -50328,3 +50329,5 @@
        add constraint FKsts4i7fe65ys3bu0ilfsk05f9 
        foreign key (wallet_id) 
        references wallet;
+=======
+>>>>>>> 1057a19a1812fa0a05136e93d566bcac7978f136
