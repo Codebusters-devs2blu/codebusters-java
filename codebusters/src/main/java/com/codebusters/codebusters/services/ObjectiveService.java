@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +26,10 @@ public class ObjectiveService {
 
 	public List<ObjectiveDTO> listAll() {
 		List<Objective> objectives = objectiveRepository.findAll();
+		List<ObjectiveDTO> listObjective = new ArrayList<>();
+		for (Objective objective2 : objectives) {
+			
+		}
 		return objectives.stream()
 				.map(objective -> modelMapper.map(objective, ObjectiveDTO.class))
 				.collect(Collectors.toList());
@@ -45,7 +50,7 @@ public class ObjectiveService {
 		newObjective.setCurrentAmount(objectiveDTO.getCurrentAmount());
 		newObjective.setDescription(objectiveDTO.getDescription());
 
-		ChildUserDTO childUserDTO = objectiveDTO.getChildUserDTO();
+		ChildUserDTO childUserDTO = objectiveDTO.getChildUser();
 		if (childUserDTO != null) {
 			ChildUser childUser = modelMapper.map(childUserDTO, ChildUser.class);
 			newObjective.setChildUser(childUser);
@@ -62,7 +67,7 @@ public class ObjectiveService {
 		existingObjective.setDescription(objectiveDTO.getDescription());
 		existingObjective.setCurrentAmount(objectiveDTO.getCurrentAmount());
 
-		ChildUserDTO childUserDTO = objectiveDTO.getChildUserDTO();
+		ChildUserDTO childUserDTO = objectiveDTO.getChildUser();
 		if (childUserDTO != null) {
 			ChildUser childUser = modelMapper.map(childUserDTO, ChildUser.class);
 			existingObjective.setChildUser(childUser);

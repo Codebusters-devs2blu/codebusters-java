@@ -23,13 +23,13 @@ public class ChildUserDTO implements Serializable {
 
 	@JsonProperty("userDTO")
 	@NotNull
-	private UserDTO userDTO;
+	private UserDTO user;
 	@JsonProperty("birthday")
 	@NotNull
 	private Date birthday;
 	@JsonProperty("walletDTO")
 	@NotNull
-	private WalletDTO walletDTO;
+	private WalletDTO wallet;
 	@JsonProperty("family")
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
@@ -37,24 +37,21 @@ public class ChildUserDTO implements Serializable {
 	@JsonProperty("guardian")
 	@NotNull
 	private AdultUserDTO guardian;
-	
-	
+
 	public ChildUserDTO() {
 		super();
 	}
-	
 
-	public ChildUserDTO(Long id, @NotNull UserDTO userDTO, @NotNull Date birthday, @NotNull WalletDTO walletDTO,
+	public ChildUserDTO(Long id, @NotNull UserDTO user, @NotNull Date birthday, @NotNull WalletDTO wallet,
 			@NotNull Family family, @NotNull AdultUserDTO guardian) {
 		super();
 		this.id = id;
-		this.userDTO = userDTO;
+		this.user = user;
 		this.birthday = birthday;
-		this.walletDTO = walletDTO;
+		this.wallet = wallet;
 		this.family = family;
 		this.guardian = guardian;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -64,12 +61,14 @@ public class ChildUserDTO implements Serializable {
 		this.id = id;
 	}
 
-	public UserDTO getUserDTO() {
-		return userDTO;
+	
+
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 
 	public Date getBirthday() {
@@ -80,12 +79,12 @@ public class ChildUserDTO implements Serializable {
 		this.birthday = birthday;
 	}
 
-	public WalletDTO getWalletDTO() {
-		return walletDTO;
+	public WalletDTO getWallet() {
+		return wallet;
 	}
 
-	public void setWalletDTO(WalletDTO walletDTO) {
-		this.walletDTO = walletDTO;
+	public void setWallet(WalletDTO wallet) {
+		this.wallet = wallet;
 	}
 
 	public Family getFamily() {
@@ -106,7 +105,7 @@ public class ChildUserDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ChildUserDTO [id=" + id + ", userDTO=" + userDTO + ", birthday=" + birthday + ", walletDTO=" + walletDTO
+		return "ChildUserDTO [id=" + id + ", userDTO=" + user + ", birthday=" + birthday + ", walletDTO=" + wallet
 				+ ", family=" + family + ", guardian=" + guardian + "]";
 	}
 

@@ -23,7 +23,7 @@ public class ObjectiveDTO {
     @NotEmpty(message = "O campo descrição não pode estar vazio")*/
     private String description;
     @JsonProperty("childUserDTO")
-    private ChildUserDTO childUserDTO;
+    private ChildUserDTO childUser;
 
    
 	public ObjectiveDTO() {
@@ -31,15 +31,17 @@ public class ObjectiveDTO {
 	}
 	
 
+	
 	public ObjectiveDTO(Long id, double objectiveValue, double currentAmount, String description,
-			ChildUserDTO childUserDTO) {
+			ChildUserDTO childUser) {
 		super();
 		this.id = id;
 		this.objectiveValue = objectiveValue;
 		this.currentAmount = currentAmount;
 		this.description = description;
-		this.childUserDTO = childUserDTO;
+		this.childUser = childUser;
 	}
+
 
 
 	public Long getId() {
@@ -74,13 +76,19 @@ public class ObjectiveDTO {
         this.description = description;
     }
 
-    public ChildUserDTO getChildUserDTO() {
-        return childUserDTO;
-    }
 
-    public void setChildUserDTO(ChildUserDTO childUserDTO) {
-        this.childUserDTO = childUserDTO;
-    }
+
+	public ChildUserDTO getChildUser() {
+		return childUser;
+	}
+
+
+
+	public void setChildUser(ChildUserDTO childUser) {
+		this.childUser = childUser;
+	}
+
+  
 /*
 	@Override
 	public String toString() {

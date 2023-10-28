@@ -11,99 +11,95 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-
 public class ChildTaskDTO {
 	@JsonProperty("id")
-    private Long id;
+	private Long id;
 	@JsonProperty("description")
-    @NotBlank(message = "O campo código não pode estar em branco")
-    @NotEmpty(message = "O campo código não pode estar vazio")
-    private String description;
+	@NotBlank(message = "O campo código não pode estar em branco")
+	@NotEmpty(message = "O campo código não pode estar vazio")
+	private String description;
 	@JsonProperty("taskValue")
 	@NotNull
-    private Double taskValue;
+	private Double taskValue;
 	@JsonProperty("status")
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
-    private TaskStatus status;
+	private TaskStatus status;
 	@JsonProperty("adultUserDTO")
-    private AdultUserDTO adultUserDTO;
+	private AdultUserDTO adultUser;
 	@JsonProperty("childUserDTO")
-    private ChildUserDTO childUserDTO;
+	private ChildUserDTO childUser;
 
-	
-
-    public ChildTaskDTO() {
+	public ChildTaskDTO() {
 
 	}
-    
 
 	public ChildTaskDTO(Long id,
 			@NotBlank(message = "O campo código não pode estar em branco") @NotEmpty(message = "O campo código não pode estar vazio") String description,
-			@NotNull Double taskValue, @NotNull TaskStatus status, AdultUserDTO adultUserDTO,
-			ChildUserDTO childUserDTO) {
+			@NotNull Double taskValue, @NotNull TaskStatus status, AdultUserDTO adultUser, ChildUserDTO childUser) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.taskValue = taskValue;
 		this.status = status;
-		this.adultUserDTO = adultUserDTO;
-		this.childUserDTO = childUserDTO;
+		this.adultUser = adultUser;
+		this.childUser = childUser;
 	}
 
-
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Double getTaskValue() {
-        return taskValue;
-    }
+	public Double getTaskValue() {
+		return taskValue;
+	}
 
-    public void setTaskValue(Double taskValue) {
-        this.taskValue = taskValue;
-    }
+	public void setTaskValue(Double taskValue) {
+		this.taskValue = taskValue;
+	}
 
-    public TaskStatus getStatus() {
-        return status;
-    }
+	public TaskStatus getStatus() {
+		return status;
+	}
 
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
 
-    public AdultUserDTO getAdultUserDTO() {
-        return adultUserDTO;
-    }
+	public AdultUserDTO getAdultUser() {
+		return adultUser;
+	}
 
-    public void setAdultUserDTO(AdultUserDTO adultUserDTO) {
-        this.adultUserDTO = adultUserDTO;
-    }
+	public void setAdultUser(AdultUserDTO adultUser) {
+		this.adultUser = adultUser;
+	}
 
-    public ChildUserDTO getChildUserDTO() {
-        return childUserDTO;
-    }
+	
 
-    public void setChildUserDTO(ChildUserDTO childUserDTO) {
-        this.childUserDTO = childUserDTO;
-    }
+	public ChildUserDTO getChildUser() {
+		return childUser;
+	}
+
+	public void setChildUser(ChildUserDTO childUser) {
+		this.childUser = childUser;
+	}
 
 	@Override
 	public String toString() {
 		return "ChildTaskDTO [id=" + id + ", description=" + description + ", taskValue=" + taskValue + ", status="
-				+ status + ", adultUserDTO=" + adultUserDTO + ", childUserDTO=" + childUserDTO + "]";
+				+ status + ", adultUserDTO=" + adultUser + ", childUserDTO=" + childUser + "]";
 	}
-    
+
 }
