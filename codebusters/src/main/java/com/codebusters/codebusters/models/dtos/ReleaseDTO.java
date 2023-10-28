@@ -34,7 +34,7 @@ public class ReleaseDTO implements Serializable {
     private String description;
     @JsonProperty("walletDTO")
     @NotNull
-    private WalletDTO walletDTO;
+    private WalletDTO wallet;
     
     
     public ReleaseDTO() {
@@ -43,14 +43,14 @@ public class ReleaseDTO implements Serializable {
     
 
 	public ReleaseDTO(Long id, @NotNull Timestamp date, @NotNull ReleaseType type, @NotNull double releaseValue,
-			@NotNull String description, @NotNull WalletDTO walletDTO) {
+			@NotNull String description, @NotNull WalletDTO wallet) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.type = type;
 		this.releaseValue = releaseValue;
 		this.description = description;
-		this.walletDTO = walletDTO;
+		this.wallet = wallet;
 	}
 
 
@@ -94,18 +94,22 @@ public class ReleaseDTO implements Serializable {
         this.description = description;
     }
 
-    public WalletDTO getWalletDTO() {
-        return walletDTO;
-    }
+  
 
-    public void setWalletDTO(WalletDTO walletDTO) {
-        this.walletDTO = walletDTO;
-    }
+	public WalletDTO getWallet() {
+		return wallet;
+	}
+
+
+	public void setWallet(WalletDTO wallet) {
+		this.wallet = wallet;
+	}
+
 
 	@Override
 	public String toString() {
 		return "ReleaseDTO [id=" + id + ", date=" + date + ", type=" + type + ", releaseValue=" + releaseValue
-			+ ", description=" + description + ", walletDTO=" + walletDTO + "]";
+			+ ", description=" + description + ", walletDTO=" + wallet + "]";
 	}
     
 }

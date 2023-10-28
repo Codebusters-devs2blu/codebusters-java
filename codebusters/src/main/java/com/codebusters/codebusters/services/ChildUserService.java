@@ -64,7 +64,7 @@ public class ChildUserService {
 				.orElseThrow(() -> new EntityNotFoundException("Guardian not found with ID: " + guardianId));
 
 		// Crie um novo User usando o UserService
-		UserDTO userDTO = childUserDTO.getUserDTO();
+		UserDTO userDTO = childUserDTO.getUser();
 
 		if (userDTO == null) {
 			throw new IllegalArgumentException("UserDTO não pode ser nulo");
@@ -118,25 +118,25 @@ public class ChildUserService {
 		if (dto.getFamily() != null) {
 			existingchildUser.setFamily(dto.getFamily());
 		}
-		if(dto.getWalletDTO()!=null) {
-			Wallet wallet = mapper.map(dto.getWalletDTO(), Wallet.class);
+		if(dto.getWallet()!=null) {
+			Wallet wallet = mapper.map(dto.getWallet(), Wallet.class);
 			existingchildUser.setWallet(wallet);
 		}
 		if(dto.getGuardian()!=null) {
 			AdultUser adultUser = mapper.map(dto.getGuardian(), AdultUser.class);
 			existingchildUser.setGuardian(adultUser);
 		}
-		if(dto.getUserDTO()!=null) {
-			User user = mapper.map(dto.getUserDTO(), User.class);
+		if(dto.getUser()!=null) {
+			User user = mapper.map(dto.getUser(), User.class);
 			existingchildUser.setUser(user);
 		}
 		
 	
 		
 		// Adicione validações para campos nulos
-		if (dto.getUserDTO() != null) {
+		if (dto.getUser() != null) {
 			
-			UserDTO userDTO = mapper.map(dto.getUserDTO(), UserDTO.class);
+			UserDTO userDTO = mapper.map(dto.getUser(), UserDTO.class);
 			userDTO.setId(existingchildUser.getUser().getId());
 		
 			UserDTO updatedUserDTO = userService.update(userDTO);
@@ -147,12 +147,12 @@ public class ChildUserService {
 			
 			
 			if (updatedUserDTO == null) {
-				throw new EntityNotFoundException("User not found with ID: " + dto.getUserDTO().getId());
+				throw new EntityNotFoundException("User not found with ID: " + dto.getUser().getId());
 			}
 
 			// Verifique o campo isActive e atualize-o se não for nulo
 			if (userDTO.getActive() != null) {
-				dto.getUserDTO().setActive(userDTO.getActive());
+				dto.getUser().setActive(userDTO.getActive());
 			}
 		
 			
@@ -161,7 +161,7 @@ public class ChildUserService {
 		ChildUser updatedAdultUser = childUserRepository.save(existingchildUser);
 		ChildUserDTO childUserDTO =mapper.map(existingchildUser, ChildUserDTO.class);
 		WalletDTO wallet2 = mapper.map(existingchildUser.getWallet(), WalletDTO.class);
-		childUserDTO.setWalletDTO(wallet2);
+		childUserDTO.setWallet(wallet2);
 		
 		
 		
