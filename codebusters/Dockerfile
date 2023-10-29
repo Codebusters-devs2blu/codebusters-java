@@ -20,7 +20,7 @@ RUN mvn -U clean install package
 FROM openjdk:17-slim
 
 # Copy the built war file from the build stage
-COPY --from=build /codebusters/target/codebusters-0.0.1-SNAPSHOT.war codebusters-0.0.1-SNAPSHOT.jar
+COPY --from=build /codebusters/target/codebusters-0.0.1-SNAPSHOT.jar codebusters-0.0.1-SNAPSHOT.jar
 
 # Set the port the app listens on
 EXPOSE 8080
